@@ -126,6 +126,42 @@
   }
   .social-row a:hover{background:rgba(255,255,255,0.28)}
 
+  /* BLOG LINK */
+  .blog-link{
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    background:linear-gradient(135deg,#1F2937,#374151);color:#fff;
+    text-decoration:none;padding:14px 16px;border-radius:16px;
+    font-weight:700;font-size:14px;margin-top:12px;
+    box-shadow:0 4px 16px rgba(0,0,0,0.18);
+    transition:transform 0.15s ease;
+  }
+  .blog-link:hover{transform:translateY(-2px)}
+  .blog-link strong{font-weight:800}
+
+  /* NEWSLETTER */
+  .newsletter{
+    background:rgba(255,255,255,0.15);backdrop-filter:blur(8px);
+    border-radius:18px;padding:20px 18px;margin-top:18px;color:#fff;
+    position:relative;
+  }
+  .newsletter h3{font-size:15px;font-weight:800;margin-bottom:6px}
+  .newsletter p.lead{font-size:12.5px;line-height:1.5;opacity:0.95;margin-bottom:14px}
+  .newsletter form{display:flex;gap:8px;flex-wrap:wrap}
+  .newsletter input[type=email]{
+    flex:1;min-width:0;padding:11px 14px;border-radius:12px;
+    border:none;font-size:14px;font-weight:500;background:#fff;color:#111;
+    outline:none;
+  }
+  .newsletter input[type=email]:focus{box-shadow:0 0 0 3px rgba(255,255,255,0.4)}
+  .newsletter button{
+    background:#111;color:#fff;border:none;padding:11px 16px;
+    border-radius:12px;font-weight:700;font-size:13px;cursor:pointer;
+    transition:transform 0.15s ease;
+  }
+  .newsletter button:hover{transform:translateY(-2px)}
+  .newsletter .hp{position:absolute;left:-9999px}
+  .newsletter .success{font-size:13px;font-weight:700;text-align:center;color:#FBBF24;padding:8px}
+
   /* FOOTER */
   footer{
     text-align:center;margin-top:28px;color:rgba(255,255,255,0.85);
@@ -285,6 +321,24 @@
     <div class="social-row">
       <a href="https://www.instagram.com/garimposp.oficial" target="_blank" rel="noopener noreferrer" data-prod="instagram">📷 Instagram</a>
       <a href="https://www.tiktok.com/@garimposp.oficial" target="_blank" rel="noopener noreferrer" data-prod="tiktok">🎵 TikTok</a>
+    </div>
+
+    <!-- BLOG LINK -->
+    <a href="/blog/" class="blog-link" data-prod="blog">
+      📝 <strong>Blog Garimpo SP</strong> · reviews honestas pro paulistano
+    </a>
+
+    <!-- NEWSLETTER -->
+    <div class="newsletter" id="newsletter">
+      <h3>📬 Achadinho da semana no email</h3>
+      <p class="lead">1 email/semana com a melhor oferta Amazon pro paulistano. Sem spam, prometido.</p>
+      <form name="newsletter" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/?subscribed=1#newsletter">
+        <input type="hidden" name="form-name" value="newsletter">
+        <p class="hp"><label>Não preencher: <input name="bot-field"></label></p>
+        <input type="email" name="email" placeholder="seu@email.com" required>
+        <button type="submit">Quero!</button>
+      </form>
+      <p class="success" id="newsletter-success" style="display:none">✅ Inscrito! Em breve achadinhos no seu email.</p>
     </div>
 
   </main>
