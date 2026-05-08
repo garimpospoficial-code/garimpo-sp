@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Garimpo SP — Cockpit V2</title>
+<style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #fafaf7;
+  color: #1a1a1a;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.container { max-width: 1500px; margin: 0 auto; padding: 16px; }
+
+/* Header */
+.header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.brand { display: flex; align-items: baseline; gap: 8px; }
+.brand h1 { font-size: 20px; font-weight: 700; color: #1a1a1a; }
+.brand .tag { font-size: 11px; color: #888; font-weight: 500; letter-spacing: 0.5px; }
+.brand .v { font-size: 10px; background: #f59e0b; color: #fff; padding: 2px 6px; border-radius: 4px; font-weight: 700; letter-spacing: 0.5px; }
+.header-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* Buttons */
+button {
+  font-family: inherit;
+  font-size: 13px;
+  border: none;
+  background: #fff;
+  color: #1a1a1a;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid #e5e5e0;
+  transition: all 0.12s;
+  font-weight: 500;
+}
+button:hover { background: #f5f5f0; border-color: #d5d5cf; }
+button:active { transform: translateY(1px); }
+button.primary { background: #f59e0b; color: #fff; border-color: #f59e0b; }
+button.primary:hover { background: #d97706; border-color: #d97706; }
+button.ghost { background: transparent; border-color: transparent; padding: 4px 8px; font-size: 12px; }
+button.ghost:hover { background: #f0f0eb; }
+button.danger:hover { background: #fee; border-color: #fcc; color: #c00; }
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* KPIs */
+.kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px; }
+.kpi { background: #fff; border: 1px solid #e5e5e0; border-radius: 10px; padding: 14px 16px; }
+.kpi-label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+.kpi-value { font-size: 22px; font-weight: 700; color: #1a1a1a; }
+.kpi-value[contenteditable="true"] { outline: none; cursor: text; padding: 1px 4px; border-radius: 4px; }
+.kpi-value[contenteditable="true"]:hover { background: #fef3c7; }
+.kpi-value[contenteditable="true"]:focus { background: #fef9e7; box-shadow: 0 0 0 2px #f59e0b; }
+.kpi-sub { font-size: 11px; color: #999; margin-top: 2px; }
+
+/* Catálogo de produtos */
+.catalog {
+  background: #fff;
+  border: 1px solid #e5e5e0;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+}
+.catalog-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+.catalog-head h2 { font-size: 13px; font-weight: 600; color: #1a1a1a; }
+.catalog-head .sub { font-size: 11px; color: #888; }
+.catalog-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+.product {
+  background: #faf9f3;
+  border: 1px solid #f0eee5;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 11px;
+  position: relative;
+}
+.product .emoji { font-size: 22px; display: block; margin-bottom: 4px; }
+.product .name { font-weight: 600; color: #1a1a1a; line-height: 1.3; margin-bottom: 4px; min-height: 32px; }
+.product .price { color: #d97706; font-weight: 700; font-size: 12px; }
+.product .commission { color: #888; font-size: 10px; }
+.product a { display: block; margin-top: 6px; color: #2563eb; font-size: 10px; word-break: break-all; }
+.product .copy-btn { position: absolute; top: 6px; right: 6px; padding: 2px 6px; font-size: 10px; }
+
+@media (max-width: 1100px) {
+  .catalog-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Calendário editorial */
+.calendar {
+  background: #fff;
+  border: 1px solid #e5e5e0;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+}
+.calendar-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+.calendar-head h2 { font-size: 13px; font-weight: 600; }
+.calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+.day { background: #faf9f3; border: 1px solid #f0eee5; border-radius: 6px; padding: 8px; min-height: 70px; font-size: 11px; }
+.day .dow { font-size: 10px; color: #888; text-transform: uppercase; font-weight: 600; }
+.day .slot { display: block; padding: 3px 5px; background: #fef3c7; border-radius: 4px; margin-top: 4px; color: #78350f; font-weight: 500; }
+.day.empty .slot { background: #f0f0eb; color: #aaa; }
+.day .time { font-size: 9px; color: #999; display: block; margin-top: 1px; }
+
+/* Toolbar */
+.toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; }
+.toolbar-left { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.filter-pills { display: flex; gap: 4px; flex-wrap: wrap; }
+.pill { font-size: 12px; padding: 4px 10px; border-radius: 12px; background: #fff; border: 1px solid #e5e5e0; cursor: pointer; }
+.pill.active { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+
+/* Kanban */
+.kanban { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+.column { background: #f0efe9; border-radius: 10px; padding: 10px; min-height: 400px; }
+.col-header { display: flex; justify-content: space-between; align-items: center; padding: 4px 6px 10px; font-weight: 600; font-size: 13px; color: #555; }
+.col-count { background: #fff; border-radius: 10px; padding: 1px 8px; font-size: 11px; color: #888; }
+
+/* Card */
+.card {
+  background: #fff;
+  border: 1px solid #e5e5e0;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+  cursor: pointer;
+}
+.card-type { display: inline-block; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; padding: 2px 8px; border-radius: 4px; margin-bottom: 6px; }
+.card-type.reels { background: #fce7f3; color: #be185d; }
+.card-type.carrossel { background: #dbeafe; color: #1e40af; }
+.card-type.estatico { background: #d1fae5; color: #065f46; }
+.card-type.story { background: #fef3c7; color: #92400e; }
+.card-cat { display: inline-block; font-size: 10px; background: #f3f4f6; color: #6b7280; padding: 2px 8px; border-radius: 4px; margin-left: 4px; }
+.card h3 { font-size: 14px; font-weight: 600; margin: 4px 0 6px; line-height: 1.3; }
+.card-legenda { font-size: 12px; color: #444; white-space: pre-wrap; margin-bottom: 6px; max-height: 80px; overflow: hidden; position: relative; }
+.card.expanded .card-legenda { max-height: none; }
+.card-legenda.long::after { content: "▼ ver mais"; display: block; font-size: 10px; color: #f59e0b; margin-top: 4px; }
+.card.expanded .card-legenda.long::after { content: "▲ recolher"; }
+.card-hashtags { font-size: 11px; color: #2563eb; margin-bottom: 6px; word-break: break-word; }
+.card-meta { display: flex; flex-wrap: wrap; gap: 8px; font-size: 11px; color: #666; margin-bottom: 8px; padding-top: 6px; border-top: 1px dashed #eee; }
+.card-meta span { display: inline-flex; align-items: center; gap: 3px; }
+.card-product-link {
+  background: #fef3c7; border: 1px solid #fde68a;
+  border-radius: 6px; padding: 6px 8px;
+  font-size: 11px; margin-bottom: 8px; word-break: break-all;
+}
+.card-product-link a { color: #b45309; text-decoration: none; font-weight: 500; }
+.card-product-link a:hover { text-decoration: underline; }
+.card-actions { display: flex; flex-wrap: wrap; gap: 4px; padding-top: 6px; border-top: 1px solid #f0f0eb; }
+.card-actions button { padding: 4px 8px; font-size: 11px; }
+
+/* Empty state */
+.empty { text-align: center; padding: 40px 16px; color: #999; font-size: 12px; }
+.empty strong { display: block; font-size: 13px; color: #555; margin-bottom: 4px; }
+
+/* Modal */
+.modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,0.4); display: none; align-items: center; justify-content: center; z-index: 100; }
+.modal-bg.show { display: flex; }
+.modal { background: #fff; border-radius: 12px; padding: 20px; max-width: 600px; width: 90%; max-height: 85vh; overflow-y: auto; }
+.modal h2 { font-size: 16px; margin-bottom: 12px; }
+.modal label { display: block; font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin: 12px 0 4px; }
+.modal input, .modal textarea, .modal select { width: 100%; font-family: inherit; font-size: 13px; padding: 8px 10px; border: 1px solid #e5e5e0; border-radius: 6px; outline: none; background: #fff; }
+.modal input:focus, .modal textarea:focus, .modal select:focus { border-color: #f59e0b; }
+.modal textarea { min-height: 70px; resize: vertical; }
+.modal-footer { display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px; }
+
+/* Toast */
+.toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #1a1a1a; color: #fff; padding: 10px 16px; border-radius: 8px; font-size: 13px; opacity: 0; transition: opacity 0.2s; z-index: 200; pointer-events: none; }
+.toast.show { opacity: 1; }
+
+@media (max-width: 900px) {
+  .kpis { grid-template-columns: repeat(2, 1fr); }
+  .kanban { grid-template-columns: 1fr; }
+  .calendar-grid { grid-template-columns: repeat(3, 1fr); }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <div class="brand">
+      <h1>⛏️ Garimpo SP</h1>
+      <span class="tag">COCKPIT</span>
+      <span class="v">V2</span>
+    </div>
+    <div class="header-actions">
+      <button onclick="openBriefing()">⚙️ Briefing</button>
+      <button onclick="exportData()" class="ghost">💾 Exportar</button>
+      <button onclick="resetData()" class="ghost">🗑️ Limpar</button>
+    </div>
+  </div>
+
+  <!-- KPIs -->
+  <div class="kpis">
+    <div class="kpi">
+      <div class="kpi-label">Seguidores</div>
+      <div class="kpi-value" contenteditable="true" data-metric="seguidores">0</div>
+      <div class="kpi-sub">edita aqui</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Alcance / semana</div>
+      <div class="kpi-value" contenteditable="true" data-metric="alcance">0</div>
+      <div class="kpi-sub">copia do IG</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Cliques afiliado</div>
+      <div class="kpi-value" contenteditable="true" data-metric="cliques">0</div>
+      <div class="kpi-sub">soma da semana</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Comissões R$</div>
+      <div class="kpi-value" contenteditable="true" data-metric="comissoes">0</div>
+      <div class="kpi-sub">caixa Jarvis</div>
+    </div>
+  </div>
+
+  <!-- Catálogo de produtos -->
+  <div class="catalog">
+    <div class="catalog-head">
+      <h2>📦 Catálogo de Afiliação (tag=garimposp-20)</h2>
+      <span class="sub">Linktree: linktr.ee/garimposp.oficial</span>
+    </div>
+    <div class="catalog-grid" id="catalog-grid"></div>
+  </div>
+
+  <!-- Calendário Editorial -->
+  <div class="calendar">
+    <div class="calendar-head">
+      <h2>📅 Calendário editorial — próximos 7 dias</h2>
+      <span class="sub">Cadência: Segunda 19h · Quarta 12h30 · Sexta 19h</span>
+    </div>
+    <div class="calendar-grid" id="calendar-grid"></div>
+  </div>
+
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <div class="toolbar-left">
+      <button class="primary" onclick="generateIdeas()" id="genBtn">✨ Gerar 10 ideias</button>
+      <div class="filter-pills">
+        <span class="pill active" data-filter="all">Tudo</span>
+        <span class="pill" data-filter="reels">Reels</span>
+        <span class="pill" data-filter="carrossel">Carrossel</span>
+        <span class="pill" data-filter="estatico">Estático</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Kanban -->
+  <div class="kanban">
+    <div class="column" data-status="ideias">
+      <div class="col-header">
+        <span>💡 Ideias geradas</span>
+        <span class="col-count" id="count-ideias">0</span>
+      </div>
+      <div id="col-ideias"></div>
+    </div>
+    <div class="column" data-status="aprovadas">
+      <div class="col-header">
+        <span>✅ Aprovadas — pronto pra postar</span>
+        <span class="col-count" id="count-aprovadas">0</span>
+      </div>
+      <div id="col-aprovadas"></div>
+    </div>
+    <div class="column" data-status="postadas">
+      <div class="col-header">
+        <span>🚀 Postadas</span>
+        <span class="col-count" id="count-postadas">0</span>
+      </div>
+      <div id="col-postadas"></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Modal: Briefing -->
+<div class="modal-bg" id="modal-briefing">
+  <div class="modal">
+    <h2>⚙️ Briefing do Garimpo SP</h2>
+    <label>Tom de voz</label>
+    <input id="b-tom">
+    <label>Público-alvo</label>
+    <input id="b-publico">
+    <label>Categorias preferidas</label>
+    <input id="b-categorias">
+    <label>Plataformas de afiliação</label>
+    <input id="b-plataformas">
+    <label>Mix desejado</label>
+    <textarea id="b-mix"></textarea>
+    <label>Observações extras</label>
+    <textarea id="b-extra"></textarea>
+    <div class="modal-footer">
+      <button onclick="closeModal('modal-briefing')">Cancelar</button>
+      <button class="primary" onclick="saveBriefing()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Edit -->
+<div class="modal-bg" id="modal-edit">
+  <div class="modal">
+    <h2>✏️ Editar ideia</h2>
+    <input type="hidden" id="edit-id">
+    <label>Título</label>
+    <input id="edit-titulo">
+    <label>Tipo</label>
+    <select id="edit-tipo">
+      <option value="reels">Reels</option>
+      <option value="carrossel">Carrossel</option>
+      <option value="estatico">Estático</option>
+      <option value="story">Story</option>
+    </select>
+    <label>Categoria</label>
+    <input id="edit-categoria">
+    <label>Produto sugerido (do catálogo)</label>
+    <select id="edit-produto-id">
+      <option value="">— sem produto específico —</option>
+    </select>
+    <label>Legenda</label>
+    <textarea id="edit-legenda" style="min-height:140px;"></textarea>
+    <label>Hashtags</label>
+    <textarea id="edit-hashtags" style="min-height:50px;"></textarea>
+    <label>Horário ideal de postagem</label>
+    <input id="edit-horario">
+    <div class="modal-footer">
+      <button onclick="closeModal('modal-edit')">Cancelar</button>
+      <button class="primary" onclick="saveEdit()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ============ CATÁLOGO DE PRODUTOS ============
+const CATALOG = [
+  {
+    id: "guarda-chuva",
+    emoji: "☂️",
+    name: "Guarda-Chuva Reforçado Anti-Vento",
+    price: "R$ 37",
+    commission: "11%",
+    category: "Roupas",
+    asin: "B0D1MMCMRP",
+    keywords: ["chuva", "temporal", "guarda-chuva", "umidade", "outono", "inverno"]
+  },
+  {
+    id: "powerbank",
+    emoji: "🔋",
+    name: "I2GO Power Bank 20.000mAh",
+    price: "R$ 169",
+    commission: "8%",
+    category: "Eletrônicos",
+    asin: "B094YR4SLJ",
+    keywords: ["bateria", "celular", "carregador", "metro", "transporte", "trabalho", "tech"]
+  },
+  {
+    id: "fone",
+    emoji: "🎧",
+    name: "Anker Soundcore Q11i ANC",
+    price: "R$ 233",
+    commission: "8%",
+    category: "Eletrônicos",
+    asin: "B0DJW5G283",
+    keywords: ["fone", "ANC", "metro", "ruido", "trabalho", "trajeto", "cancelamento"]
+  },
+  {
+    id: "armario",
+    emoji: "👕",
+    name: "SONGMICS Guarda-Roupa Portátil",
+    price: "R$ 273",
+    commission: "8%",
+    category: "Casa",
+    asin: "B09R4KQ2LY",
+    keywords: ["apto pequeno", "organizacao", "armario", "roupa", "mudanca", "casa"]
+  },
+  {
+    id: "airfryer",
+    emoji: "🍳",
+    name: "Mondial Air Fryer 4L",
+    price: "R$ 244",
+    commission: "8%",
+    category: "Cozinha",
+    asin: "B0BBQ3GBX1",
+    keywords: ["cozinha", "air fryer", "fritadeira", "apto pequeno", "comida", "praticidade"]
+  }
+];
+
+function affiliateLink(asin) {
+  return `https://www.amazon.com.br/dp/${asin}?tag=garimposp-20`;
+}
+
+// ============ STATE ============
+const STORAGE_KEY = "garimpo_cockpit_v2";
+const DEFAULT_BRIEFING = {
+  tom: "descontraído, paulistano, direto, com humor leve",
+  publico: "morador de SP entre 25-45, classe média B/C, vida corrida",
+  categorias: "tecnologia útil, casa e organização, mobilidade urbana, beleza, fitness, cozinha esperta",
+  plataformas: "Amazon Brasil (tag=garimposp-20), Mercado Livre, Shopee",
+  mix: "40% sazonal SP, 20% comparações de preço, 20% listas, 20% reviews diretos",
+  extra: "Aproveitar época de chuva (out-mar). Sextou: produtos casa/cozinha. Evitar política. Foco SP capital + ABC. CTA puxa pro link na bio (Linktree)."
+};
+
+let state = loadState();
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const s = JSON.parse(raw);
+      // Migração simples: garante campos novos
+      s.briefing = s.briefing || { ...DEFAULT_BRIEFING };
+      s.metrics = s.metrics || { seguidores: 0, alcance: 0, cliques: 0, comissoes: 0 };
+      s.cards = s.cards || [];
+      s.filter = s.filter || "all";
+      return s;
+    }
+  } catch (e) { console.warn("loadState falhou", e); }
+  // Migração da V1 (chave antiga garimpo_cockpit_v1)
+  try {
+    const v1 = localStorage.getItem("garimpo_cockpit_v1");
+    if (v1) {
+      const s = JSON.parse(v1);
+      s.briefing = s.briefing || { ...DEFAULT_BRIEFING };
+      return s;
+    }
+  } catch (e) {}
+  return {
+    briefing: { ...DEFAULT_BRIEFING },
+    metrics: { seguidores: 0, alcance: 0, cliques: 0, comissoes: 0 },
+    cards: [],
+    filter: "all"
+  };
+}
+
+function saveState() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+  catch (e) { console.error("saveState falhou", e); }
+}
+
+function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
+
+function findProductByKeywords(text) {
+  if (!text) return null;
+  const lower = text.toLowerCase();
+  let best = null, bestScore = 0;
+  for (const p of CATALOG) {
+    let score = 0;
+    for (const k of p.keywords) {
+      if (lower.includes(k.toLowerCase())) score++;
+    }
+    if (score > bestScore) { best = p; bestScore = score; }
+  }
+  return bestScore > 0 ? best : null;
+}
+
+// ============ RENDER ============
+function renderCatalog() {
+  const grid = document.getElementById('catalog-grid');
+  grid.innerHTML = CATALOG.map(p => `
+    <div class="product">
+      <button class="copy-btn" onclick="copyProductLink('${p.id}')">📋</button>
+      <span class="emoji">${p.emoji}</span>
+      <div class="name">${p.name}</div>
+      <div class="price">${p.price}</div>
+      <div class="commission">comissão ${p.commission}</div>
+      <a href="${affiliateLink(p.asin)}" target="_blank">${affiliateLink(p.asin).replace('https://www.', '')}</a>
+    </div>
+  `).join('');
+}
+
+function copyProductLink(id) {
+  const p = CATALOG.find(x => x.id === id);
+  if (!p) return;
+  navigator.clipboard.writeText(affiliateLink(p.asin));
+  toast(`📋 Link ${p.emoji} ${p.name} copiado`);
+}
+
+function renderCalendar() {
+  const grid = document.getElementById('calendar-grid');
+  const now = new Date();
+  const days = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SAB'];
+  const slots = {
+    1: { label: "POST · Review produto", time: "19h" },
+    3: { label: "POST · Lista 5 itens", time: "12h30" },
+    5: { label: "POST · Sazonal SP", time: "19h" }
+  };
+  let html = "";
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(now);
+    d.setDate(now.getDate() + i);
+    const dow = d.getDay();
+    const slot = slots[dow];
+    const dateStr = `${d.getDate()}/${d.getMonth()+1}`;
+    html += `
+      <div class="day ${slot ? '' : 'empty'}">
+        <span class="dow">${days[dow]} ${dateStr}</span>
+        ${slot
+          ? `<span class="slot">${slot.label}<span class="time">${slot.time}</span></span>`
+          : `<span class="slot">livre</span>`}
+      </div>
+    `;
+  }
+  grid.innerHTML = html;
+}
+
+function render() {
+  // KPIs
+  document.querySelectorAll('[data-metric]').forEach(el => {
+    const k = el.dataset.metric;
+    if (document.activeElement !== el) el.textContent = state.metrics[k] ?? 0;
+  });
+
+  // Filter pills
+  document.querySelectorAll('.pill').forEach(p => {
+    p.classList.toggle('active', p.dataset.filter === state.filter);
+  });
+
+  // Cards by column
+  const cols = { ideias: [], aprovadas: [], postadas: [] };
+  for (const c of state.cards) {
+    if (state.filter !== "all" && c.tipo !== state.filter) continue;
+    if (cols[c.status]) cols[c.status].push(c);
+  }
+  for (const status of Object.keys(cols)) {
+    const el = document.getElementById('col-' + status);
+    document.getElementById('count-' + status).textContent = cols[status].length;
+    if (cols[status].length === 0) el.innerHTML = renderEmpty(status);
+    else el.innerHTML = cols[status].map(renderCard).join('');
+  }
+}
+
+function renderEmpty(status) {
+  if (status === "ideias") return '<div class="empty"><strong>Sem ideias</strong>Clique em "Gerar 10 ideias" pra começar.</div>';
+  if (status === "aprovadas") return '<div class="empty"><strong>Nada aprovado</strong>Aprove ideias da coluna esquerda.</div>';
+  return '<div class="empty"><strong>Nada postado</strong>Marque cards aprovados como postados.</div>';
+}
+
+function escapeHtml(s) {
+  return String(s ?? "").replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+
+function renderCard(c) {
+  const isLong = (c.legenda || "").length > 140;
+  const product = c.productId ? CATALOG.find(p => p.id === c.productId) : null;
+  let actions = "";
+  if (c.status === "ideias") {
+    actions = `
+      <button class="primary" onclick="approveCard('${c.id}')">✓ Aprovar</button>
+      <button onclick="editCard('${c.id}')">✏️</button>
+      <button onclick="regenerateCard('${c.id}')">🔄</button>
+      <button class="danger" onclick="discardCard('${c.id}')">✗</button>
+    `;
+  } else if (c.status === "aprovadas") {
+    actions = `
+      <button class="primary" onclick="copyFull('${c.id}')">📋 Copiar tudo</button>
+      <button onclick="editCard('${c.id}')">✏️</button>
+      <button onclick="markPosted('${c.id}')">🚀 Postada</button>
+      <button class="danger" onclick="moveBack('${c.id}')">↩️</button>
+    `;
+  } else {
+    actions = `
+      <button onclick="copyFull('${c.id}')">📋</button>
+      <button class="danger" onclick="discardCard('${c.id}')">🗑️</button>
+    `;
+  }
+
+  const productLink = product ? `
+    <div class="card-product-link">
+      <strong>${product.emoji} ${escapeHtml(product.name)}</strong> · ${product.price}<br>
+      <a href="${affiliateLink(product.asin)}" target="_blank">${affiliateLink(product.asin)}</a>
+    </div>
+  ` : '';
+
+  return `
+    <div class="card" id="card-${c.id}" onclick="toggleExpand(event, '${c.id}')">
+      <span class="card-type ${c.tipo}">${escapeHtml(c.tipo)}</span>
+      ${c.categoria ? `<span class="card-cat">${escapeHtml(c.categoria)}</span>` : ''}
+      <h3>${escapeHtml(c.titulo)}</h3>
+      <div class="card-legenda${isLong ? ' long' : ''}">${escapeHtml(c.legenda)}</div>
+      ${c.hashtags ? `<div class="card-hashtags">${escapeHtml(c.hashtags)}</div>` : ''}
+      ${productLink}
+      <div class="card-meta">
+        ${c.horario ? `<span>⏰ ${escapeHtml(c.horario)}</span>` : ''}
+      </div>
+      <div class="card-actions" onclick="event.stopPropagation()">${actions}</div>
+    </div>
+  `;
+}
+
+function toggleExpand(e, id) {
+  if (e.target.tagName === 'BUTTON' || e.target.tagName === 'A') return;
+  document.getElementById('card-' + id).classList.toggle('expanded');
+}
+
+// ============ ACTIONS ============
+async function generateIdeas() {
+  const btn = document.getElementById('genBtn');
+  btn.disabled = true;
+  btn.textContent = '⏳ Gerando...';
+  try {
+    const briefing = state.briefing;
+    const catalogStr = CATALOG.map(p => `- ${p.id}: ${p.emoji} ${p.name} (${p.price}) — keywords: ${p.keywords.join(', ')}`).join('\n');
+
+    const prompt = `Você é o Vision, agente de marketing do Garimpo SP, perfil de Instagram que recomenda achadinhos pro paulistano com afiliação Amazon.
+
+BRIEFING:
+- Tom: ${briefing.tom}
+- Público: ${briefing.publico}
+- Categorias: ${briefing.categorias}
+- Plataformas: ${briefing.plataformas}
+- Mix: ${briefing.mix}
+- Notas: ${briefing.extra}
+
+CATÁLOGO DE PRODUTOS DISPONÍVEIS PRA AFILIAÇÃO (USE QUANDO COUBER):
+${catalogStr}
+
+TAREFA: gere EXATAMENTE 10 ideias de posts. Para cada uma, retorne JSON com:
+- tipo: "reels" | "carrossel" | "estatico" | "story"
+- categoria: string curta ("Sazonal SP", "Comparação", "Lista", "Review")
+- titulo: até 60 caracteres
+- legenda: 180-400 chars com CTA "link na bio"
+- hashtags: string com 8-12 hashtags separadas por espaço
+- productId: id do catálogo se a ideia couber com produto (use exatamente "guarda-chuva", "powerbank", "fone", "armario", "airfryer") ou "" se for só temática
+- horario: ex "terça 19h", "sexta 12h30"
+
+REGRAS:
+- Pelo menos 5 ideias devem mencionar 1 produto do catálogo (productId preenchido)
+- Cada produto deve aparecer em ≥1 ideia
+- Variar tipo, categoria e produto
+- Pelo menos 3 sazonais SP
+- Português coloquial paulistano
+
+RETORNE APENAS array JSON válido com 10 objetos, sem markdown.`;
+
+    const result = await window.cowork.askClaude(prompt, []);
+    let text = typeof result === 'string' ? result : (result?.text || result?.content || JSON.stringify(result));
+    const match = text.match(/\[[\s\S]*\]/);
+    if (!match) throw new Error("Sem JSON na resposta");
+    const ideias = JSON.parse(match[0]);
+    if (!Array.isArray(ideias)) throw new Error("Resposta não é array");
+
+    const now = Date.now();
+    for (const i of ideias) {
+      let pid = i.productId || "";
+      if (!pid) {
+        // tenta auto-match por keywords
+        const auto = findProductByKeywords((i.titulo || "") + " " + (i.legenda || "") + " " + (i.categoria || ""));
+        if (auto) pid = auto.id;
+      }
+      if (pid && !CATALOG.find(p => p.id === pid)) pid = "";
+
+      state.cards.push({
+        id: uid(),
+        status: "ideias",
+        tipo: (i.tipo || "estatico").toLowerCase(),
+        categoria: i.categoria || "",
+        titulo: i.titulo || "(sem título)",
+        legenda: i.legenda || "",
+        hashtags: i.hashtags || "",
+        productId: pid,
+        horario: i.horario || "",
+        createdAt: now
+      });
+    }
+    saveState();
+    render();
+    toast(`✨ ${ideias.length} ideias geradas`);
+  } catch (e) {
+    console.error(e);
+    toast("❌ Erro: " + e.message, 4000);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '✨ Gerar 10 ideias';
+  }
+}
+
+function approveCard(id) {
+  const c = state.cards.find(x => x.id === id);
+  if (!c) return;
+  c.status = "aprovadas";
+  saveState(); render();
+  toast("✓ Movido pra Aprovadas");
+}
+
+function discardCard(id) {
+  state.cards = state.cards.filter(x => x.id !== id);
+  saveState(); render();
+}
+
+async function regenerateCard(id) {
+  const c = state.cards.find(x => x.id === id);
+  if (!c) return;
+  toast("🔄 Regenerando...");
+  try {
+    const catalogStr = CATALOG.map(p => `- ${p.id}: ${p.name}`).join('\n');
+    const prompt = `Você é o Vision do Garimpo SP. Reescreva a ideia abaixo com novo ângulo, mantendo categoria.
+
+CATÁLOGO:
+${catalogStr}
+
+Original:
+${JSON.stringify(c, null, 2)}
+
+Briefing:
+${JSON.stringify(state.briefing, null, 2)}
+
+Retorne APENAS objeto JSON com: tipo, categoria, titulo, legenda, hashtags, productId, horario.`;
+    const result = await window.cowork.askClaude(prompt, []);
+    let text = typeof result === 'string' ? result : (result?.text || JSON.stringify(result));
+    const match = text.match(/\{[\s\S]*\}/);
+    if (!match) throw new Error("Sem JSON");
+    const novo = JSON.parse(match[0]);
+    Object.assign(c, {
+      tipo: (novo.tipo || c.tipo).toLowerCase(),
+      categoria: novo.categoria || c.categoria,
+      titulo: novo.titulo || c.titulo,
+      legenda: novo.legenda || c.legenda,
+      hashtags: novo.hashtags || c.hashtags,
+      productId: novo.productId !== undefined ? novo.productId : c.productId,
+      horario: novo.horario || c.horario
+    });
+    saveState(); render();
+    toast("✨ Regenerada");
+  } catch (e) {
+    toast("❌ " + e.message);
+  }
+}
+
+function copyFull(id) {
+  const c = state.cards.find(x => x.id === id);
+  if (!c) return;
+  const product = c.productId ? CATALOG.find(p => p.id === c.productId) : null;
+  let text = c.legenda;
+  if (product) text += `\n\n👉 ${product.emoji} ${product.name} — ${product.price}\n${affiliateLink(product.asin)}`;
+  if (c.hashtags) text += `\n\n${c.hashtags}`;
+  navigator.clipboard.writeText(text).then(() => toast("📋 Tudo copiado (legenda + link + hashtags)")).catch(() => toast("❌ Falha"));
+}
+
+function markPosted(id) {
+  const c = state.cards.find(x => x.id === id);
+  if (!c) return;
+  c.status = "postadas";
+  c.postedAt = Date.now();
+  saveState(); render();
+  toast("🚀 Postada");
+}
+
+function moveBack(id) {
+  const c = state.cards.find(x => x.id === id);
+  if (!c) return;
+  c.status = "ideias";
+  saveState(); render();
+}
+
+// ============ EDIT MODAL ============
+function fillProductSelect(selectId, currentId) {
+  const sel = document.getElementById(selectId);
+  sel.innerHTML = '<option value="">— sem produto específico —</option>' +
+    CATALOG.map(p => `<option value="${p.id}" ${p.id === currentId ? 'selected' : ''}>${p.emoji} ${p.name} — ${p.price}</option>`).join('');
+}
+
+function editCard(id) {
+  const c = state.cards.find(x => x.id === id);
+  if (!c) return;
+  document.getElementById('edit-id').value = c.id;
+  document.getElementById('edit-titulo').value = c.titulo;
+  document.getElementById('edit-tipo').value = c.tipo;
+  document.getElementById('edit-categoria').value = c.categoria;
+  document.getElementById('edit-legenda').value = c.legenda;
+  document.getElementById('edit-hashtags').value = c.hashtags;
+  document.getElementById('edit-horario').value = c.horario;
+  fillProductSelect('edit-produto-id', c.productId || "");
+  openModal('modal-edit');
+}
+function saveEdit() {
+  const id = document.getElementById('edit-id').value;
+  const c = state.cards.find(x => x.id === id);
+  if (!c) return;
+  c.titulo = document.getElementById('edit-titulo').value;
+  c.tipo = document.getElementById('edit-tipo').value;
+  c.categoria = document.getElementById('edit-categoria').value;
+  c.legenda = document.getElementById('edit-legenda').value;
+  c.hashtags = document.getElementById('edit-hashtags').value;
+  c.horario = document.getElementById('edit-horario').value;
+  c.productId = document.getElementById('edit-produto-id').value;
+  saveState(); render();
+  closeModal('modal-edit');
+  toast("✏️ Atualizada");
+}
+
+// ============ BRIEFING ============
+function openBriefing() {
+  const b = state.briefing;
+  ['tom','publico','categorias','plataformas','mix','extra'].forEach(k => {
+    document.getElementById('b-' + k).value = b[k] || '';
+  });
+  openModal('modal-briefing');
+}
+function saveBriefing() {
+  ['tom','publico','categorias','plataformas','mix','extra'].forEach(k => {
+    state.briefing[k] = document.getElementById('b-' + k).value;
+  });
+  saveState();
+  closeModal('modal-briefing');
+  toast("⚙️ Briefing salvo");
+}
+
+// ============ MODAL HELPERS ============
+function openModal(id) { document.getElementById(id).classList.add('show'); }
+function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+document.querySelectorAll('.modal-bg').forEach(bg => {
+  bg.addEventListener('click', e => { if (e.target === bg) bg.classList.remove('show'); });
+});
+
+// ============ FILTERS ============
+document.querySelectorAll('.pill').forEach(p => {
+  p.addEventListener('click', () => {
+    state.filter = p.dataset.filter;
+    saveState(); render();
+  });
+});
+
+// ============ KPI EDIT ============
+document.querySelectorAll('[data-metric]').forEach(el => {
+  el.addEventListener('blur', () => {
+    const k = el.dataset.metric;
+    const v = parseFloat(el.textContent.replace(/[^\d.,-]/g, '').replace(',', '.')) || 0;
+    state.metrics[k] = v;
+    el.textContent = v;
+    saveState();
+  });
+  el.addEventListener('keydown', e => {
+    if (e.key === 'Enter') { e.preventDefault(); el.blur(); }
+  });
+});
+
+// ============ EXPORT / RESET ============
+function exportData() {
+  const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'garimpo-cockpit-' + new Date().toISOString().slice(0,10) + '.json';
+  a.click();
+  URL.revokeObjectURL(url);
+  toast("💾 Exportado");
+}
+
+function resetData() {
+  if (!confirm("Apagar TODOS os dados?")) return;
+  localStorage.removeItem(STORAGE_KEY);
+  localStorage.removeItem("garimpo_cockpit_v1");
+  state = loadState();
+  render();
+  toast("🗑️ Zerado");
+}
+
+// ============ TOAST ============
+let toastTimer;
+function toast(msg, ms = 2000) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), ms);
+}
+
+// ============ BOOT ============
+renderCatalog();
+renderCalendar();
+render();
+</script>
+</body>
+</html>

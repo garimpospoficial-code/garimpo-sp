@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Jarvis — Painel Financeiro Garimpo SP</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" integrity="sha384-iU8HYtnGQ8Cy4zl7gbNMOhsDTTKX02BTXptVP/vqAWIaTfM7isw76iyZCsjL2eVi" crossorigin="anonymous"></script>
+<style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #fafaf7;
+  color: #1a1a1a;
+  font-size: 14px;
+}
+.container { max-width: 1400px; margin: 0 auto; padding: 16px; }
+
+.header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.brand { display: flex; align-items: baseline; gap: 8px; }
+.brand h1 { font-size: 20px; font-weight: 700; }
+.brand .tag { font-size: 11px; color: #888; font-weight: 500; letter-spacing: 0.5px; }
+.brand .v { font-size: 10px; background: #10b981; color: #fff; padding: 2px 6px; border-radius: 4px; font-weight: 700; }
+.header-actions { display: flex; gap: 8px; }
+
+button {
+  font-family: inherit; font-size: 13px; border: none;
+  background: #fff; color: #1a1a1a; padding: 8px 14px; border-radius: 8px;
+  cursor: pointer; border: 1px solid #e5e5e0; font-weight: 500;
+}
+button:hover { background: #f5f5f0; }
+button.primary { background: #10b981; color: #fff; border-color: #10b981; }
+button.primary:hover { background: #059669; }
+button.ghost { background: transparent; border-color: transparent; padding: 4px 8px; font-size: 12px; }
+
+/* Cash hero */
+.hero {
+  background: linear-gradient(135deg, #10b981 0%, #047857 100%);
+  border-radius: 14px; padding: 24px; margin-bottom: 16px; color: #fff;
+}
+.hero-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 24px; align-items: end; }
+.hero-main .lbl { font-size: 12px; opacity: 0.9; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+.hero-main .val { font-size: 42px; font-weight: 800; }
+.hero-main .sub { font-size: 13px; opacity: 0.9; margin-top: 6px; }
+.hero-stat .lbl { font-size: 11px; opacity: 0.85; text-transform: uppercase; letter-spacing: 0.5px; }
+.hero-stat .val { font-size: 22px; font-weight: 700; margin-top: 4px; }
+.hero-stat .delta { font-size: 12px; margin-top: 2px; }
+.hero-stat .delta.up { color: #d1fae5; }
+.hero-stat .delta.down { color: #fecaca; }
+
+/* KPIs grid */
+.kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px; }
+.kpi { background: #fff; border: 1px solid #e5e5e0; border-radius: 10px; padding: 14px 16px; }
+.kpi-label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+.kpi-value { font-size: 22px; font-weight: 700; }
+.kpi-value.green { color: #10b981; }
+.kpi-value.red { color: #ef4444; }
+.kpi-sub { font-size: 11px; color: #999; margin-top: 2px; }
+.kpi-value[contenteditable="true"] { outline: none; cursor: text; padding: 1px 4px; border-radius: 4px; }
+.kpi-value[contenteditable="true"]:hover { background: #d1fae5; }
+.kpi-value[contenteditable="true"]:focus { background: #ecfdf5; box-shadow: 0 0 0 2px #10b981; }
+
+/* Two-column layout */
+.cols { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 16px; }
+
+/* Card */
+.card-box {
+  background: #fff; border: 1px solid #e5e5e0; border-radius: 10px;
+  padding: 16px; margin-bottom: 16px;
+}
+.card-box h2 { font-size: 14px; font-weight: 600; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+.card-box .sub { font-size: 11px; color: #888; font-weight: 400; }
+
+/* Tabs */
+.tabs { display: flex; gap: 4px; margin-bottom: 10px; border-bottom: 1px solid #e5e5e0; }
+.tab { padding: 6px 12px; cursor: pointer; font-size: 12px; color: #666; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+.tab.active { color: #10b981; border-bottom-color: #10b981; font-weight: 600; }
+
+/* Tables */
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
+th { text-align: left; font-weight: 600; color: #666; padding: 8px 6px; border-bottom: 1px solid #e5e5e0; font-size: 11px; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 8px 6px; border-bottom: 1px solid #f5f5f0; }
+tr:hover td { background: #fafaf7; }
+.tag-pill { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 600; text-transform: uppercase; }
+.tag-pill.amazon { background: #fef3c7; color: #92400e; }
+.tag-pill.ml { background: #dbeafe; color: #1e40af; }
+.tag-pill.shopee { background: #fce7f3; color: #be185d; }
+.tag-pill.ads { background: #ede9fe; color: #5b21b6; }
+.tag-pill.tools { background: #f3f4f6; color: #4b5563; }
+.amount-pos { color: #10b981; font-weight: 600; }
+.amount-neg { color: #ef4444; font-weight: 600; }
+
+/* Action row */
+.action-row { display: flex; gap: 6px; padding: 8px 6px; }
+.action-row input, .action-row select { flex: 1; font-family: inherit; font-size: 12px; padding: 6px 8px; border: 1px solid #e5e5e0; border-radius: 6px; }
+.action-row button { padding: 6px 12px; font-size: 12px; }
+
+/* Alert */
+.alert { padding: 10px 12px; border-radius: 8px; font-size: 12px; margin-bottom: 12px; }
+.alert.warn { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+.alert.danger { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+.alert.ok { background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
+
+/* Chart container */
+.chart-wrap { position: relative; height: 220px; }
+
+/* Toast */
+.toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #1a1a1a; color: #fff; padding: 10px 16px; border-radius: 8px; font-size: 13px; opacity: 0; transition: opacity 0.2s; z-index: 200; pointer-events: none; }
+.toast.show { opacity: 1; }
+
+@media (max-width: 900px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .kpis { grid-template-columns: repeat(2, 1fr); }
+  .cols { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <div class="brand">
+      <h1>💰 Jarvis</h1>
+      <span class="tag">FINANCEIRO · GARIMPO SP</span>
+      <span class="v">V1</span>
+    </div>
+    <div class="header-actions">
+      <button onclick="exportData()" class="ghost">💾 Exportar</button>
+      <button onclick="resetData()" class="ghost">🗑️ Zerar</button>
+    </div>
+  </div>
+
+  <!-- HERO: caixa atual -->
+  <div class="hero">
+    <div class="hero-grid">
+      <div class="hero-main">
+        <div class="lbl">Caixa atual</div>
+        <div class="val" id="hero-saldo">R$ 0,00</div>
+        <div class="sub" id="hero-runway">Carregando...</div>
+      </div>
+      <div class="hero-stat">
+        <div class="lbl">Entradas (30d)</div>
+        <div class="val" id="hero-entradas">R$ 0</div>
+        <div class="delta up" id="hero-entradas-delta">—</div>
+      </div>
+      <div class="hero-stat">
+        <div class="lbl">Saídas (30d)</div>
+        <div class="val" id="hero-saidas">R$ 0</div>
+        <div class="delta down" id="hero-saidas-delta">—</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Alertas dinâmicos -->
+  <div id="alerts-area"></div>
+
+  <!-- KPIs operacionais -->
+  <div class="kpis">
+    <div class="kpi">
+      <div class="kpi-label">ROAS últimos 30d</div>
+      <div class="kpi-value" id="kpi-roas">—</div>
+      <div class="kpi-sub">Receita / Gasto Ads</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">CPA (custo p/ comissão)</div>
+      <div class="kpi-value" id="kpi-cpa">—</div>
+      <div class="kpi-sub">Gasto Ads / nº comissões</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Comissão média</div>
+      <div class="kpi-value" id="kpi-ticket">R$ 0</div>
+      <div class="kpi-sub">Por entrada</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Capital inicial</div>
+      <div class="kpi-value" contenteditable="true" data-config="capitalInicial">500</div>
+      <div class="kpi-sub">R$ — edita aqui</div>
+    </div>
+  </div>
+
+  <!-- Layout 2 colunas -->
+  <div class="cols">
+    <!-- Coluna esquerda: Movimentações -->
+    <div>
+      <div class="card-box">
+        <h2>📊 Movimentações <span class="sub">total: <span id="mov-count">0</span></span></h2>
+        <div class="tabs">
+          <span class="tab active" data-tab="all">Tudo</span>
+          <span class="tab" data-tab="entrada">Entradas</span>
+          <span class="tab" data-tab="saida">Saídas</span>
+        </div>
+
+        <!-- Form rápido -->
+        <div class="action-row">
+          <select id="new-tipo">
+            <option value="entrada">Entrada</option>
+            <option value="saida">Saída</option>
+          </select>
+          <select id="new-fonte">
+            <option value="amazon">Amazon</option>
+            <option value="ml">Mercado Livre</option>
+            <option value="shopee">Shopee</option>
+            <option value="ads">Meta Ads</option>
+            <option value="tools">Ferramentas</option>
+            <option value="outros">Outros</option>
+          </select>
+          <input id="new-desc" placeholder="Descrição (ex: comissão venda fone)">
+          <input id="new-valor" placeholder="R$" type="number" step="0.01" style="max-width:90px;">
+          <button class="primary" onclick="addMov()">+ Adicionar</button>
+        </div>
+
+        <!-- Table -->
+        <div style="margin-top: 10px; max-height: 380px; overflow-y: auto;">
+          <table id="mov-table">
+            <thead>
+              <tr>
+                <th>Data</th>
+                <th>Fonte</th>
+                <th>Descrição</th>
+                <th style="text-align:right;">Valor</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="mov-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Coluna direita: Gráfico + Resumo por fonte -->
+    <div>
+      <div class="card-box">
+        <h2>📈 Caixa últimos 30d</h2>
+        <div class="chart-wrap">
+          <canvas id="chart-cash"></canvas>
+        </div>
+      </div>
+
+      <div class="card-box">
+        <h2>🥧 Por fonte (entradas)</h2>
+        <div id="por-fonte"></div>
+      </div>
+
+      <div class="card-box">
+        <h2>⚙️ Configurações</h2>
+        <label style="display:block;font-size:11px;color:#666;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px;">Limite mínimo de caixa (alerta)</label>
+        <input id="cfg-limit" type="number" step="10" style="width:100%;font-family:inherit;font-size:13px;padding:6px 10px;border:1px solid #e5e5e0;border-radius:6px;" onchange="updateConfig('limiteMinimo', this.value)">
+
+        <label style="display:block;font-size:11px;color:#666;margin:10px 0 4px;text-transform:uppercase;letter-spacing:0.5px;">Meta de comissão (mês)</label>
+        <input id="cfg-meta" type="number" step="50" style="width:100%;font-family:inherit;font-size:13px;padding:6px 10px;border:1px solid #e5e5e0;border-radius:6px;" onchange="updateConfig('metaMensal', this.value)">
+
+        <p style="font-size:11px;color:#888;margin-top:10px;">
+          📌 IDs afiliação:<br>
+          • Amazon: <code>garimposp-20</code><br>
+          • Mercado Livre: <code>gs20260501195956</code><br>
+          • Shopee: <span id="shopee-id">aguardando aprovação</span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const STORAGE = "jarvis_garimpo_v1";
+let state = load();
+
+function load() {
+  try {
+    const raw = localStorage.getItem(STORAGE);
+    if (raw) {
+      const s = JSON.parse(raw);
+      s.config = s.config || {};
+      s.config.capitalInicial = s.config.capitalInicial ?? 500;
+      s.config.limiteMinimo = s.config.limiteMinimo ?? 100;
+      s.config.metaMensal = s.config.metaMensal ?? 1500;
+      s.movimentacoes = s.movimentacoes || [];
+      return s;
+    }
+  } catch(e){}
+  return {
+    config: { capitalInicial: 500, limiteMinimo: 100, metaMensal: 1500 },
+    movimentacoes: []
+  };
+}
+function save() { localStorage.setItem(STORAGE, JSON.stringify(state)); }
+function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
+function fmt(v) { return "R$ " + Number(v).toLocaleString("pt-BR", {minimumFractionDigits: 2, maximumFractionDigits: 2}); }
+function fmtShort(v) { return "R$ " + Number(v).toLocaleString("pt-BR", {minimumFractionDigits: 0, maximumFractionDigits: 0}); }
+function dateStr(ts) {
+  const d = new Date(ts);
+  return d.getDate().toString().padStart(2,"0") + "/" + (d.getMonth()+1).toString().padStart(2,"0");
+}
+
+const FONTES = {
+  amazon: { label: "Amazon", cls: "amazon" },
+  ml: { label: "Mercado Livre", cls: "ml" },
+  shopee: { label: "Shopee", cls: "shopee" },
+  ads: { label: "Meta Ads", cls: "ads" },
+  tools: { label: "Ferramentas", cls: "tools" },
+  outros: { label: "Outros", cls: "tools" }
+};
+
+let activeTab = "all";
+let chartInstance = null;
+
+function calcSaldo() {
+  const ini = parseFloat(state.config.capitalInicial) || 0;
+  let saldo = ini;
+  for (const m of state.movimentacoes) {
+    saldo += (m.tipo === "entrada" ? 1 : -1) * (parseFloat(m.valor) || 0);
+  }
+  return saldo;
+}
+
+function calc30d() {
+  const cutoff = Date.now() - 30 * 24 * 60 * 60 * 1000;
+  let entradas = 0, saidas = 0, gastoAds = 0, nEntradas = 0;
+  for (const m of state.movimentacoes) {
+    if (m.ts < cutoff) continue;
+    const v = parseFloat(m.valor) || 0;
+    if (m.tipo === "entrada") { entradas += v; nEntradas++; }
+    else {
+      saidas += v;
+      if (m.fonte === "ads") gastoAds += v;
+    }
+  }
+  const roas = gastoAds > 0 ? entradas / gastoAds : null;
+  const cpa = nEntradas > 0 && gastoAds > 0 ? gastoAds / nEntradas : null;
+  const ticket = nEntradas > 0 ? entradas / nEntradas : 0;
+  return { entradas, saidas, gastoAds, nEntradas, roas, cpa, ticket };
+}
+
+function renderHero() {
+  const saldo = calcSaldo();
+  const ini = parseFloat(state.config.capitalInicial) || 0;
+  const stats = calc30d();
+  document.getElementById("hero-saldo").textContent = fmt(saldo);
+  document.getElementById("hero-entradas").textContent = fmtShort(stats.entradas);
+  document.getElementById("hero-saidas").textContent = fmtShort(stats.saidas);
+
+  // Runway: caixa / saída média semanal
+  const saidaSemana = stats.saidas / (30/7);
+  let runway = "—";
+  if (saidaSemana > 0 && saldo > 0) {
+    const sem = Math.floor(saldo / saidaSemana);
+    runway = `Runway estimado: ${sem} semanas no ritmo atual`;
+  } else if (stats.entradas > stats.saidas) {
+    runway = `🚀 Caixa crescendo +${fmtShort(stats.entradas - stats.saidas)} no último mês`;
+  } else {
+    runway = `Capital inicial: ${fmt(ini)} · sem saídas registradas`;
+  }
+  document.getElementById("hero-runway").textContent = runway;
+}
+
+function renderKpis() {
+  const s = calc30d();
+  document.getElementById("kpi-roas").textContent = s.roas !== null ? s.roas.toFixed(2) + "x" : "—";
+  document.getElementById("kpi-cpa").textContent = s.cpa !== null ? fmt(s.cpa) : "—";
+  document.getElementById("kpi-ticket").textContent = fmt(s.ticket);
+
+  // editable capital
+  const cap = document.querySelector('[data-config="capitalInicial"]');
+  if (document.activeElement !== cap) cap.textContent = state.config.capitalInicial;
+
+  document.getElementById("cfg-limit").value = state.config.limiteMinimo;
+  document.getElementById("cfg-meta").value = state.config.metaMensal;
+}
+
+function renderAlerts() {
+  const area = document.getElementById("alerts-area");
+  const saldo = calcSaldo();
+  const limite = parseFloat(state.config.limiteMinimo);
+  const meta = parseFloat(state.config.metaMensal);
+  const stats = calc30d();
+  let html = "";
+
+  if (saldo < limite) {
+    html += `<div class="alert danger">⚠️ Caixa abaixo do limite mínimo (${fmt(saldo)} &lt; ${fmt(limite)}). Pausar gastos e priorizar entradas.</div>`;
+  } else if (saldo < limite * 1.5) {
+    html += `<div class="alert warn">⚡ Caixa próximo do limite. Cuidado com novas saídas.</div>`;
+  }
+
+  if (stats.entradas >= meta) {
+    html += `<div class="alert ok">🎯 Meta mensal de comissão batida! ${fmt(stats.entradas)} ≥ ${fmt(meta)}.</div>`;
+  } else if (stats.entradas > 0) {
+    const pct = (stats.entradas / meta * 100).toFixed(0);
+    html += `<div class="alert warn">📈 Progresso meta mensal: ${pct}% (${fmt(stats.entradas)} de ${fmt(meta)}).</div>`;
+  }
+
+  if (stats.roas !== null && stats.roas < 1) {
+    html += `<div class="alert danger">🔥 ROAS &lt; 1: gastando mais em Ads do que entrando. Pausar campanha.</div>`;
+  }
+
+  area.innerHTML = html;
+}
+
+function renderTable() {
+  const tbody = document.getElementById("mov-tbody");
+  let movs = [...state.movimentacoes].sort((a,b) => b.ts - a.ts);
+  if (activeTab !== "all") movs = movs.filter(m => m.tipo === activeTab);
+
+  document.getElementById("mov-count").textContent = movs.length;
+
+  if (movs.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:#aaa;padding:30px;font-size:11px;">Sem movimentações ainda. Adicione a primeira no formulário acima.</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = movs.map(m => {
+    const f = FONTES[m.fonte] || FONTES.outros;
+    const sig = m.tipo === "entrada" ? "+" : "-";
+    const cls = m.tipo === "entrada" ? "amount-pos" : "amount-neg";
+    return `
+      <tr>
+        <td>${dateStr(m.ts)}</td>
+        <td><span class="tag-pill ${f.cls}">${f.label}</span></td>
+        <td>${escapeHtml(m.desc)}</td>
+        <td style="text-align:right;" class="${cls}">${sig}${fmt(m.valor)}</td>
+        <td><button class="ghost" onclick="delMov('${m.id}')" title="Remover">×</button></td>
+      </tr>
+    `;
+  }).join("");
+}
+
+function escapeHtml(s) {
+  return String(s ?? "").replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+
+function renderPorFonte() {
+  const cutoff = Date.now() - 30 * 24 * 60 * 60 * 1000;
+  const totals = {};
+  let total = 0;
+  for (const m of state.movimentacoes) {
+    if (m.ts < cutoff || m.tipo !== "entrada") continue;
+    const f = m.fonte || "outros";
+    totals[f] = (totals[f] || 0) + (parseFloat(m.valor) || 0);
+    total += parseFloat(m.valor) || 0;
+  }
+  const div = document.getElementById("por-fonte");
+  if (total === 0) {
+    div.innerHTML = `<p style="font-size:11px;color:#aaa;">Sem entradas registradas em 30d.</p>`;
+    return;
+  }
+  div.innerHTML = Object.entries(totals).sort((a,b) => b[1] - a[1]).map(([f, v]) => {
+    const fonte = FONTES[f] || FONTES.outros;
+    const pct = (v/total*100).toFixed(0);
+    return `
+      <div style="margin-bottom:8px;">
+        <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px;">
+          <span><span class="tag-pill ${fonte.cls}">${fonte.label}</span></span>
+          <span><b>${fmt(v)}</b> · ${pct}%</span>
+        </div>
+        <div style="height:6px;background:#f0f0eb;border-radius:3px;overflow:hidden;">
+          <div style="height:100%;width:${pct}%;background:#10b981;"></div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function renderChart() {
+  const ctx = document.getElementById("chart-cash").getContext("2d");
+  // Build daily data 30 days back
+  const days = [];
+  const now = new Date();
+  now.setHours(0,0,0,0);
+  for (let i = 29; i >= 0; i--) {
+    const d = new Date(now);
+    d.setDate(d.getDate() - i);
+    days.push(d.getTime());
+  }
+  const ini = parseFloat(state.config.capitalInicial) || 0;
+  let saldo = ini;
+  // Apply movements before window
+  const cutoff = days[0];
+  for (const m of state.movimentacoes) {
+    if (m.ts < cutoff) saldo += (m.tipo === "entrada" ? 1 : -1) * (parseFloat(m.valor) || 0);
+  }
+  const labels = [], data = [];
+  for (const d of days) {
+    const next = d + 24*60*60*1000;
+    for (const m of state.movimentacoes) {
+      if (m.ts >= d && m.ts < next) saldo += (m.tipo === "entrada" ? 1 : -1) * (parseFloat(m.valor) || 0);
+    }
+    labels.push(new Date(d).getDate() + "/" + (new Date(d).getMonth()+1));
+    data.push(Math.round(saldo*100)/100);
+  }
+  if (chartInstance) chartInstance.destroy();
+  chartInstance = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels,
+      datasets: [{
+        label: "Caixa (R$)",
+        data,
+        borderColor: "#10b981",
+        backgroundColor: "rgba(16,185,129,0.1)",
+        fill: true,
+        tension: 0.3,
+        pointRadius: 0,
+        borderWidth: 2
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { beginAtZero: false, ticks: { font: { size: 10 } } },
+        x: { ticks: { font: { size: 9 }, maxRotation: 0, autoSkip: true, maxTicksLimit: 8 } }
+      }
+    }
+  });
+}
+
+function render() {
+  renderHero();
+  renderKpis();
+  renderAlerts();
+  renderTable();
+  renderPorFonte();
+  renderChart();
+}
+
+// Actions
+function addMov() {
+  const tipo = document.getElementById("new-tipo").value;
+  const fonte = document.getElementById("new-fonte").value;
+  const desc = document.getElementById("new-desc").value.trim();
+  const valor = parseFloat(document.getElementById("new-valor").value);
+  if (!desc) return toast("Coloca uma descrição");
+  if (!valor || valor <= 0) return toast("Valor inválido");
+  state.movimentacoes.push({ id: uid(), tipo, fonte, desc, valor, ts: Date.now() });
+  save(); render();
+  document.getElementById("new-desc").value = "";
+  document.getElementById("new-valor").value = "";
+  toast(`✓ ${tipo === "entrada" ? "Entrada" : "Saída"} de ${fmt(valor)} registrada`);
+}
+
+function delMov(id) {
+  if (!confirm("Remover essa movimentação?")) return;
+  state.movimentacoes = state.movimentacoes.filter(m => m.id !== id);
+  save(); render();
+  toast("Removida");
+}
+
+function updateConfig(k, v) {
+  state.config[k] = parseFloat(v) || 0;
+  save(); render();
+}
+
+function exportData() {
+  const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "jarvis-" + new Date().toISOString().slice(0,10) + ".json";
+  a.click();
+  URL.revokeObjectURL(url);
+  toast("💾 Exportado");
+}
+
+function resetData() {
+  if (!confirm("Apagar TODAS as movimentações e reset configurações?")) return;
+  localStorage.removeItem(STORAGE);
+  state = load();
+  render();
+  toast("🗑️ Zerado");
+}
+
+// Tabs
+document.querySelectorAll(".tab").forEach(t => {
+  t.addEventListener("click", () => {
+    activeTab = t.dataset.tab;
+    document.querySelectorAll(".tab").forEach(x => x.classList.toggle("active", x === t));
+    renderTable();
+  });
+});
+
+// Editable capital
+document.querySelectorAll('[data-config]').forEach(el => {
+  el.addEventListener("blur", () => {
+    const k = el.dataset.config;
+    const v = parseFloat(el.textContent.replace(/[^\d.,-]/g, "").replace(",", ".")) || 0;
+    state.config[k] = v;
+    el.textContent = v;
+    save(); render();
+  });
+  el.addEventListener("keydown", e => {
+    if (e.key === "Enter") { e.preventDefault(); el.blur(); }
+  });
+});
+
+let toastTimer;
+function toast(msg, ms = 1800) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove("show"), ms);
+}
+
+// Boot
+render();
+</script>
+</body>
+</html>

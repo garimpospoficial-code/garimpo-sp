@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Garimpo SP — achadinhos úteis pro paulistano. Apto pequeno, mobilidade urbana, cozinha esperta. Tudo testado, frete grátis Amazon.">
+<meta name="theme-color" content="#F59E0B">
+<meta property="og:title" content="⛏️ Garimpo SP — Achadinhos pro paulistano">
+<meta property="og:description" content="Achadinhos úteis pra apto pequeno em SP. Tudo testado · frete grátis Amazon.">
+<meta property="og:type" content="website">
+<title>⛏️ Garimpo SP — Achadinhos pro paulistano</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --amber-light:#FBBF24;
+    --amber:#F59E0B;
+    --amber-dark:#D97706;
+    --amber-deeper:#92400E;
+    --bg:#FFF7ED;
+    --card-bg:#FFFFFF;
+    --text:#1A1A1A;
+    --text-muted:#6B7280;
+    --green:#10B981;
+    --whatsapp:#25D366;
+  }
+  html,body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    background:linear-gradient(180deg,var(--amber) 0%,var(--amber-dark) 100%);
+    background-attachment:fixed;
+    color:var(--text);
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+  body{padding:24px 16px 48px}
+  .container{max-width:520px;margin:0 auto}
+
+  /* HEADER */
+  header{text-align:center;margin-bottom:28px;color:#fff}
+  .avatar{
+    width:104px;height:104px;border-radius:24px;
+    background:linear-gradient(135deg,var(--amber-dark),var(--amber-deeper));
+    display:flex;align-items:center;justify-content:center;
+    font-size:54px;font-weight:900;color:#fff;
+    margin:0 auto 16px;
+    box-shadow:0 4px 24px rgba(0,0,0,0.18);
+    position:relative;
+    text-shadow:2px 2px 0 rgba(0,0,0,0.12);
+  }
+  .avatar .pickaxe{position:absolute;top:-6px;right:-6px;font-size:28px;transform:rotate(20deg)}
+  h1{font-size:26px;font-weight:800;letter-spacing:-0.5px;margin-bottom:4px}
+  .handle{font-size:14px;opacity:0.92;margin-bottom:12px}
+  .bio{font-size:14px;line-height:1.55;opacity:0.95;max-width:380px;margin:0 auto}
+  .bio strong{font-weight:600}
+  .visitor-count{
+    display:inline-block;margin-top:12px;
+    background:rgba(255,255,255,0.18);backdrop-filter:blur(6px);
+    padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;
+  }
+
+  /* PRODUCT CARDS */
+  main{display:flex;flex-direction:column;gap:12px}
+  .product-card{
+    display:block;text-decoration:none;color:var(--text);
+    background:var(--card-bg);border-radius:16px;padding:14px 16px;
+    box-shadow:0 4px 16px rgba(0,0,0,0.08);
+    transition:transform 0.15s ease,box-shadow 0.15s ease;
+    position:relative;overflow:hidden;
+  }
+  .product-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.12)}
+  .product-card:active{transform:translateY(0)}
+  .product-card .row1{display:flex;align-items:center;gap:14px;margin-bottom:8px}
+  .product-emoji{
+    flex-shrink:0;width:60px;height:60px;border-radius:12px;
+    background:linear-gradient(135deg,var(--amber),var(--amber-dark));
+    display:flex;align-items:center;justify-content:center;font-size:32px;
+  }
+  .product-info{flex:1;min-width:0}
+  .product-title{font-size:14px;font-weight:700;line-height:1.3;margin-bottom:3px}
+  .product-meta{font-size:12px;color:var(--text-muted);font-weight:500}
+  .product-meta .price{color:var(--amber-dark);font-weight:700}
+  .product-meta .badge{
+    display:inline-block;background:#D1FAE5;color:#065F46;
+    padding:1px 8px;border-radius:8px;font-size:10px;font-weight:700;
+    margin-left:4px;letter-spacing:0.3px;
+  }
+  .product-meta .badge-amazon{background:#FEF3C7;color:#92400E}
+  .product-meta .badge-discount{background:#FEE2E2;color:#991B1B}
+  .product-benefit{
+    display:flex;align-items:center;gap:6px;
+    font-size:12px;color:#374151;font-weight:500;line-height:1.4;
+    padding-top:8px;border-top:1px dashed #E5E5E0;
+  }
+  .product-benefit::before{content:"→";color:var(--amber-dark);font-weight:800}
+  .featured{
+    border:2px solid var(--amber);
+    background:linear-gradient(180deg,#FFFFFF,#FFFBEB);
+  }
+  .featured::before{
+    content:"⭐ DESTAQUE DA SEMANA";
+    position:absolute;top:0;right:0;
+    background:var(--amber);color:#fff;
+    font-size:9px;font-weight:800;letter-spacing:0.5px;
+    padding:4px 10px;border-bottom-left-radius:8px;
+  }
+
+  /* WHATSAPP CTA */
+  .whatsapp-cta{
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    background:var(--whatsapp);color:#fff;text-decoration:none;
+    padding:14px 16px;border-radius:16px;font-weight:700;font-size:14px;
+    margin-top:16px;
+    box-shadow:0 4px 16px rgba(37,211,102,0.3);
+    transition:transform 0.15s ease;
+  }
+  .whatsapp-cta:hover{transform:translateY(-2px)}
+
+  /* SOCIAL LINKS */
+  .social-row{
+    display:flex;gap:10px;justify-content:center;margin-top:14px;
+  }
+  .social-row a{
+    flex:1;background:rgba(255,255,255,0.18);backdrop-filter:blur(6px);
+    color:#fff;text-decoration:none;text-align:center;
+    padding:12px;border-radius:14px;font-weight:600;font-size:13px;
+    transition:background 0.15s;
+  }
+  .social-row a:hover{background:rgba(255,255,255,0.28)}
+
+  /* FOOTER */
+  footer{
+    text-align:center;margin-top:28px;color:rgba(255,255,255,0.85);
+    font-size:11px;line-height:1.6;
+  }
+  footer p{margin-bottom:4px}
+  footer a{color:#fff;text-decoration:underline}
+  .disclosure{
+    background:rgba(0,0,0,0.18);padding:10px 14px;border-radius:10px;
+    margin-bottom:10px;font-size:11px;
+  }
+
+  /* RESPONSIVE */
+  @media (min-width:600px){
+    body{padding:48px 24px}
+    h1{font-size:30px}
+  }
+
+  /* FOR PRINT-LIKE TIDINESS */
+  @media print{*{display:none}}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <header>
+    <div class="avatar">
+      G<span class="pickaxe">⛏️</span>
+    </div>
+    <h1>Garimpo SP</h1>
+    <p class="handle">@garimposp.oficial</p>
+    <p class="bio">
+      <strong>⛏️ Achadinhos pra apto pequeno em SP</strong><br>
+      🛒 Tudo testado · frete grátis Amazon<br>
+      💸 Parceria comercial — você compra, eu ganho graninha pra continuar garimpando
+    </p>
+    <span class="visitor-count" id="visitor-count">⛏️ Garimpando há pouco…</span>
+  </header>
+
+  <!-- PRODUCTS -->
+  <main>
+
+    <!-- 1. MONDIAL AIR FRYER (DESTAQUE) -->
+    <a href="https://www.amazon.com.br/dp/B0BBQ3GBX1?tag=garimposp-20&ascsubtag=site_mondial" target="_blank" rel="nofollow noopener noreferrer" class="product-card featured" data-prod="mondial">
+      <div class="row1">
+        <div class="product-emoji">🍳</div>
+        <div class="product-info">
+          <div class="product-title">Air Fryer 4L · cabe em apto pequeno</div>
+          <div class="product-meta">
+            <span class="price">R$ 244</span>
+            <span class="badge badge-discount">-63%</span>
+            <span class="badge badge-amazon">Escolha Amazon</span>
+          </div>
+        </div>
+      </div>
+      <div class="product-benefit">Esquenta em 3min · 4,8★ 621 reviews · 110V</div>
+    </a>
+
+    <!-- 2. ANKER FONE -->
+    <a href="https://www.amazon.com.br/dp/B0DJW5G283?tag=garimposp-20&ascsubtag=site_anker" target="_blank" rel="nofollow noopener noreferrer" class="product-card" data-prod="anker">
+      <div class="row1">
+        <div class="product-emoji">🎧</div>
+        <div class="product-info">
+          <div class="product-title">Fone com ANC · silencia o metrô SP</div>
+          <div class="product-meta">
+            <span class="price">R$ 233</span>
+            <span class="badge">Frete grátis hoje</span>
+          </div>
+        </div>
+      </div>
+      <div class="product-benefit">60h bateria · multiponto PC + celular · Anker</div>
+    </a>
+
+    <!-- 3. MOCHILA ANTIFURTO (NOVO) -->
+    <a href="https://www.amazon.com.br/dp/B0DVZBXSLK?tag=garimposp-20&ascsubtag=site_mochila" target="_blank" rel="nofollow noopener noreferrer" class="product-card" data-prod="mochila">
+      <div class="row1">
+        <div class="product-emoji">🎒</div>
+        <div class="product-info">
+          <div class="product-title">Mochila notebook antifurto · USB + capa anti-chuva</div>
+          <div class="product-meta">
+            <span class="price">~R$ 149</span>
+            <span class="badge">Novo no Garimpo</span>
+          </div>
+        </div>
+      </div>
+      <div class="product-benefit">Cadeado · saída USB · capa de chuva embutida</div>
+    </a>
+
+    <!-- 4. POWER BANK -->
+    <a href="https://www.amazon.com.br/dp/B094YR4SLJ?tag=garimposp-20&ascsubtag=site_powerbank" target="_blank" rel="nofollow noopener noreferrer" class="product-card" data-prod="powerbank">
+      <div class="row1">
+        <div class="product-emoji">🔋</div>
+        <div class="product-info">
+          <div class="product-title">Power Bank 20.000mAh · carrega celular 4-5x</div>
+          <div class="product-meta">
+            <span class="price">R$ 169</span>
+            <span class="badge badge-discount">-26%</span>
+          </div>
+        </div>
+      </div>
+      <div class="product-benefit">Power Delivery 20W · 2 USB + 1 USB-C · I2GO</div>
+    </a>
+
+    <!-- 5. SONGMICS -->
+    <a href="https://www.amazon.com.br/dp/B09R4KQ2LY?tag=garimposp-20&ascsubtag=site_armario" target="_blank" rel="nofollow noopener noreferrer" class="product-card" data-prod="armario">
+      <div class="row1">
+        <div class="product-emoji">👕</div>
+        <div class="product-info">
+          <div class="product-title">Armário portátil · sem furar parede</div>
+          <div class="product-meta">
+            <span class="price">R$ 273</span>
+            <span class="badge">Frete grátis</span>
+          </div>
+        </div>
+      </div>
+      <div class="product-benefit">4 trilhos · prateleiras · 4 bolsos · monta em 30min</div>
+    </a>
+
+    <!-- 6. CAPA MOCHILA (NOVO) -->
+    <a href="https://www.amazon.com.br/dp/B0CFKC1TRV?tag=garimposp-20&ascsubtag=site_capa" target="_blank" rel="nofollow noopener noreferrer" class="product-card" data-prod="capa">
+      <div class="row1">
+        <div class="product-emoji">🛡️</div>
+        <div class="product-info">
+          <div class="product-title">Capa pra mochila · salva o notebook na chuva</div>
+          <div class="product-meta">
+            <span class="price">A partir de R$ 25</span>
+            <span class="badge">Novo no Garimpo</span>
+          </div>
+        </div>
+      </div>
+      <div class="product-benefit">30/50/60/70L · impermeável · cabe enrolada na mochila</div>
+    </a>
+
+    <!-- 7. GUARDA-CHUVA -->
+    <a href="https://www.amazon.com.br/dp/B0D1MMCMRP?tag=garimposp-20&ascsubtag=site_guardachuva" target="_blank" rel="nofollow noopener noreferrer" class="product-card" data-prod="guardachuva">
+      <div class="row1">
+        <div class="product-emoji">☂️</div>
+        <div class="product-info">
+          <div class="product-title">Guarda-chuva reforçado · aguenta vento de SP</div>
+          <div class="product-meta">
+            <span class="price">R$ 37</span>
+            <span class="badge badge-discount">-19%</span>
+            <span class="badge">+600 vendas/mês</span>
+          </div>
+        </div>
+      </div>
+      <div class="product-benefit">Abre/fecha automático · cabe em qualquer bolsa</div>
+    </a>
+
+    <!-- WHATSAPP -->
+    <a href="https://wa.me/?text=Oi%20Garimpo%20SP!%20Quero%20uma%20dica%20de%20achadinho" target="_blank" rel="nofollow noopener noreferrer" class="whatsapp-cta" data-prod="whatsapp">
+      💬 Tira dúvida sobre algum produto · Manda DM
+    </a>
+
+    <!-- SOCIAL ROW -->
+    <div class="social-row">
+      <a href="https://www.instagram.com/garimposp.oficial" target="_blank" rel="noopener noreferrer" data-prod="instagram">📷 Instagram</a>
+      <a href="https://www.tiktok.com/@garimposp.oficial" target="_blank" rel="noopener noreferrer" data-prod="tiktok">🎵 TikTok</a>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="disclosure">
+      <strong>📋 Disclosure de afiliação</strong><br>
+      Este site contém links de afiliação Amazon Associados (tag <code>garimposp-20</code>). Quando você compra pelos links daqui, o Garimpo SP recebe uma pequena comissão sem custo adicional pra você. Tudo que recomendamos foi avaliado por nós.
+    </div>
+    <p>© 2026 Garimpo SP · feito por garimpeiros, pra garimpeiros</p>
+    <p>⛏️ Achadinhos pro paulistano</p>
+  </footer>
+
+</div>
+
+<script>
+  // ============ ANALYTICS LOCAL ============
+  const KEY = "garimposp_site_v1";
+  let data = JSON.parse(localStorage.getItem(KEY) || '{}');
+  data.firstVisit = data.firstVisit || Date.now();
+  data.visits = (data.visits || 0) + 1;
+  data.lastVisit = Date.now();
+  data.clicks = data.clicks || {};
+  localStorage.setItem(KEY, JSON.stringify(data));
+
+  // ============ VISITOR COUNTER ============
+  // Mensagem dinâmica baseada em horário
+  function updateCounter() {
+    const h = new Date().getHours();
+    const period = h < 6 ? "madrugada" : h < 12 ? "manhã" : h < 18 ? "tarde" : "noite";
+    const messages = [
+      `⛏️ Garimpando achados nessa ${period}`,
+      `🛒 Tudo aqui foi testado por gente que mora em SP`,
+      `📦 Frete grátis Amazon Prime na maioria`,
+      `💸 Comissão de afiliação · não é custo extra pra você`
+    ];
+    const msg = messages[Math.floor(Math.random() * messages.length)];
+    const el = document.getElementById("visitor-count");
+    if (el) el.textContent = msg;
+  }
+  updateCounter();
+
+  // ============ TRACKING DE CLIQUES ============
+  document.querySelectorAll('[data-prod]').forEach(el => {
+    el.addEventListener('click', e => {
+      const prod = el.dataset.prod;
+      data.clicks[prod] = (data.clicks[prod] || 0) + 1;
+      data.clicks._total = (data.clicks._total || 0) + 1;
+      data.clicks._lastClick = Date.now();
+      data.clicks._lastProd = prod;
+      localStorage.setItem(KEY, JSON.stringify(data));
+
+      // pequena animação visual
+      el.style.transition = "transform 0.1s";
+      el.style.transform = "scale(0.98)";
+      setTimeout(() => { el.style.transform = ""; }, 100);
+
+      // Em V2 a gente envia evento pra Plausible / GA4
+      // Por enquanto, ascsubtag no Amazon já dá visibilidade no relatório
+    });
+  });
+
+  // ============ DEBUG (acesso via /?debug=1 mostra stats no console) ============
+  if (window.location.search.includes("debug=1")) {
+    console.table(data.clicks);
+    console.log("Total visits:", data.visits);
+  }
+</script>
+</body>
+</html>

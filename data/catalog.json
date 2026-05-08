@@ -1,0 +1,134 @@
+{
+  "tag": "garimposp-20",
+  "products": [
+    {
+      "id": "mondial",
+      "emoji": "🍳",
+      "name": "Mondial Air Fryer 4L AFN-40-BFS",
+      "asin": "B0BBQ3GBX1",
+      "price": 244.90,
+      "currency": "BRL",
+      "commission_pct": 8,
+      "category": "Cozinha",
+      "voltage": "110V",
+      "rating": 4.8,
+      "reviews": 621,
+      "badges": ["Escolha Amazon", "-63%"],
+      "headline": "Air Fryer 4L · cabe em apto pequeno",
+      "benefit": "Esquenta em 3min · substitui forno de mesa",
+      "subtag": "site_mondial",
+      "ascsubtag_url": "https://www.amazon.com.br/dp/B0BBQ3GBX1?tag=garimposp-20&ascsubtag=site_mondial",
+      "is_featured": true
+    },
+    {
+      "id": "anker",
+      "emoji": "🎧",
+      "name": "Anker Soundcore Q11i ANC",
+      "asin": "B0DJW5G283",
+      "price": 233.00,
+      "commission_pct": 8,
+      "category": "Eletrônicos",
+      "rating": 4.7,
+      "reviews": 2418,
+      "badges": ["Escolha Amazon", "Frete grátis hoje"],
+      "headline": "Fone com ANC · silencia o metrô SP",
+      "benefit": "60h bateria · multiponto PC + celular",
+      "subtag": "site_anker",
+      "ascsubtag_url": "https://www.amazon.com.br/dp/B0DJW5G283?tag=garimposp-20&ascsubtag=site_anker"
+    },
+    {
+      "id": "mochila",
+      "emoji": "🎒",
+      "name": "Mochila Notebook Antifurto USB",
+      "asin": "B0DVZBXSLK",
+      "price": 149.00,
+      "commission_pct": 11,
+      "category": "Acessórios",
+      "badges": ["Novo no Garimpo"],
+      "headline": "Mochila notebook antifurto · USB + capa anti-chuva",
+      "benefit": "Cadeado · saída USB · capa de chuva embutida",
+      "subtag": "site_mochila",
+      "ascsubtag_url": "https://www.amazon.com.br/dp/B0DVZBXSLK?tag=garimposp-20&ascsubtag=site_mochila"
+    },
+    {
+      "id": "powerbank",
+      "emoji": "🔋",
+      "name": "I2GO Power Bank 20.000mAh",
+      "asin": "B094YR4SLJ",
+      "price": 169.90,
+      "commission_pct": 8,
+      "category": "Eletrônicos",
+      "rating": 4.7,
+      "reviews": 11095,
+      "badges": ["Escolha Amazon", "-26%"],
+      "headline": "Power Bank 20.000mAh · carrega celular 4-5x",
+      "benefit": "Power Delivery 20W · 2 USB + 1 USB-C",
+      "subtag": "site_powerbank",
+      "ascsubtag_url": "https://www.amazon.com.br/dp/B094YR4SLJ?tag=garimposp-20&ascsubtag=site_powerbank"
+    },
+    {
+      "id": "armario",
+      "emoji": "👕",
+      "name": "SONGMICS Guarda-Roupa Portátil",
+      "asin": "B09R4KQ2LY",
+      "price": 273.44,
+      "commission_pct": 8,
+      "category": "Casa",
+      "rating": 4.2,
+      "reviews": 1059,
+      "badges": ["Frete grátis"],
+      "headline": "Armário portátil · sem furar parede",
+      "benefit": "4 trilhos · prateleiras · 4 bolsos · monta em 30min",
+      "subtag": "site_armario",
+      "ascsubtag_url": "https://www.amazon.com.br/dp/B09R4KQ2LY?tag=garimposp-20&ascsubtag=site_armario"
+    },
+    {
+      "id": "capa",
+      "emoji": "🛡️",
+      "name": "Capa Mochila Impermeável 30-70L",
+      "asin": "B0CFKC1TRV",
+      "price": 25.00,
+      "commission_pct": 11,
+      "category": "Acessórios",
+      "badges": ["Novo no Garimpo"],
+      "headline": "Capa pra mochila · salva o notebook na chuva",
+      "benefit": "30/50/60/70L · impermeável · cabe enrolada na mochila",
+      "subtag": "site_capa",
+      "ascsubtag_url": "https://www.amazon.com.br/dp/B0CFKC1TRV?tag=garimposp-20&ascsubtag=site_capa"
+    },
+    {
+      "id": "guardachuva",
+      "emoji": "☂️",
+      "name": "Guarda-Chuva Reforçado Anti-Vento",
+      "asin": "B0D1MMCMRP",
+      "price": 37.05,
+      "commission_pct": 11,
+      "category": "Roupas",
+      "rating": 4.4,
+      "reviews": 810,
+      "badges": ["-19%", "+600 vendas/mês"],
+      "headline": "Guarda-chuva reforçado · aguenta vento de SP",
+      "benefit": "Abre/fecha automático · cabe em qualquer bolsa",
+      "subtag": "site_guardachuva",
+      "ascsubtag_url": "https://www.amazon.com.br/dp/B0D1MMCMRP?tag=garimposp-20&ascsubtag=site_guardachuva"
+    }
+  ],
+  "social": {
+    "instagram": "https://www.instagram.com/garimposp.oficial",
+    "tiktok": "https://www.tiktok.com/@garimposp.oficial",
+    "whatsapp_dm": "https://wa.me/?text=Oi%20Garimpo%20SP!%20Quero%20uma%20dica%20de%20achadinho"
+  },
+  "affiliations": {
+    "amazon": {
+      "tag": "garimposp-20",
+      "status": "active"
+    },
+    "mercadolivre": {
+      "id": "gs20260501195956",
+      "status": "active"
+    },
+    "shopee": {
+      "status": "approved_pending_id"
+    }
+  }
+}
