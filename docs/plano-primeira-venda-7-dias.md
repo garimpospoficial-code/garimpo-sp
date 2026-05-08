@@ -32,9 +32,12 @@
 - [ ] Posta os 3 posts já no ar (post1, post2, post3) com 30min de intervalo (alimenta algoritmo)
 - [ ] Manda 5 comentários extra hoje em perfis SP (alta visibilidade) — usar a lista do plano de divulgação
 
-🟢 **Eu (30 min):**
-- [ ] Otimizo Linktree: reordeno produtos por margem, adiciono selos de urgência
-- [ ] Atualizo Hub com seção "Funil" + Painel de Conversão
+🟢 **Eu (já feito 2026-05-08):**
+- [x] Site próprio garimposp.netlify.app no ar (substituiu Linktree como destino dos cliques)
+- [x] Disclosure de afiliação no footer
+- [x] Tracking individual por produto (ascsubtag) pro Amazon Associates dashboard
+- [x] Analytics local de cliques (localStorage) + visitor counter dinâmico
+- [ ] Atualizar Hub com seção "Funil" + Painel de Conversão (pendente)
 
 ### **SEGUNDA — Reel-âncora 1 (gancho emocional)**
 
@@ -50,7 +53,7 @@
 🔴 **Você (10 min):**
 - [ ] Story: "Tô usando MUITO essa Air Fryer essa semana, vou reportando" — cria expectativa
 - [ ] Mostra 1 receita simples sendo feita (frango congelado em 18min)
-- [ ] **Adiciona link sticker pro Linktree** no story
+- [ ] **Adiciona link sticker pro site** (`https://garimposp.netlify.app`) no story
 
 ### **QUARTA — Carrossel "5 receitas Air Fryer"**
 
@@ -74,7 +77,7 @@
 🔴 **Você (15 min):**
 - [ ] Posta **Reel B** às **19h** (sextou bomba)
 - [ ] Story enquete: "Vc tem air fryer? 🍗 Sim / Não / Quero comprar"
-- [ ] **Pra quem responde "Quero comprar": manda DM com link direto pro Mondial** (atalho do Linktree)
+- [ ] **Pra quem responde "Quero comprar": manda DM dizendo "link na bio → primeiro produto"** (forçar tráfego pelo perfil pra Amazon atribuir comissão)
 
 ### **SÁBADO — Push final**
 
@@ -240,8 +243,8 @@ Em quanto tempo paga? Eu calculei: comparado ao iFood numa noite chuvosa, paga e
 
 - ✅ Capa do Reel A pronta (`reel-mondial-capa.png` em Downloads)
 - ⏳ Carrossel "5 receitas" — entrego quarta
-- ⏳ Linktree otimizado pra conversão — entrego hoje
-- ⏳ Painel de funil no Hub — entrego hoje
+- ✅ Site próprio garimposp.netlify.app (substituiu Linktree) — entregue 2026-05-08
+- ⏳ Painel de funil no Hub — pendente
 - ⏳ Verificação semana — todo domingo
 
 ---

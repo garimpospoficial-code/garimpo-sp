@@ -268,10 +268,10 @@ Hashtags: `#enquete #saopaulo #garimposp` (story tem alcance menor de hashtag)
 
 ## ⚠️ Lembretes Pepper
 
-- **Disclosure obrigatório**: todo post com link de afiliado tem que sinalizar (já tá na sua bio do Linktree, mas em posts onde você cita produto direto, mantém o "link na bio" + "afiliação")
+- **Disclosure obrigatório**: todo post com link de afiliado tem que sinalizar (já tá no footer do site `garimposp.netlify.app`, mas em posts onde você cita produto direto, mantém "link na bio" + "afiliação")
 - **110V do Mondial**: avisar SEMPRE na legenda
-- **2FA Google + Avatar Linktree**: ainda pendentes
-- **Bio do Instagram**: precisa receber a URL `linktr.ee/garimposp.oficial` (clicável só se for no campo "Site")
+- **2FA Google**: pendente
+- **Bio do Instagram/TikTok**: deve apontar pra `https://garimposp.netlify.app` no campo "Site" (atualizado 2026-05-08, ver `docs/HOJE.md`)
 
 ---
 
