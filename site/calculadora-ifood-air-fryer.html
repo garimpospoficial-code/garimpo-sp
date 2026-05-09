@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Calculadora gratuita: quanto você gasta com iFood em SP? Compare com cozinhar usando Air Fryer e veja em quantos meses ela paga. Made by Garimpo SP.">
+<meta name="keywords" content="calculadora ifood são paulo, gasto delivery sp, economia air fryer, vale a pena air fryer, ifood vs cozinha sp">
+<meta name="theme-color" content="#F59E0B">
+<meta property="og:title" content="🧮 Calculadora: quanto você gasta com iFood em SP? — Garimpo SP">
+<meta property="og:description" content="Coloca os números, descobre quanto a Air Fryer te economiza por ano. Spoiler: paga em ~2 meses.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://garimposp.netlify.app/calculadora-ifood-air-fryer.html">
+<link rel="canonical" href="https://garimposp.netlify.app/calculadora-ifood-air-fryer.html">
+<title>🧮 Calculadora: iFood vs Air Fryer — Quanto você gasta em SP? · Garimpo SP</title>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Calculadora iFood vs Air Fryer",
+  "description": "Calcule quanto você gasta com delivery em SP e quanto economiza usando uma Air Fryer Mondial 4L.",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Web",
+  "url": "https://garimposp.netlify.app/calculadora-ifood-air-fryer.html",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "BRL" }
+}
+</script>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --amber:#F59E0B;--amber-dark:#D97706;--amber-deeper:#92400E;
+    --bg:#FFF7ED;--card-bg:#FFFFFF;--text:#1A1A1A;--text-muted:#6B7280;
+    --green:#10B981;--green-bg:#D1FAE5;--red:#EF4444;
+  }
+  html,body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    background:linear-gradient(180deg,var(--amber) 0%,var(--amber-dark) 100%);
+    background-attachment:fixed;color:var(--text);min-height:100vh;
+    -webkit-font-smoothing:antialiased;line-height:1.55;
+  }
+  body{padding:24px 16px 48px}
+  .container{max-width:600px;margin:0 auto}
+  .breadcrumb{font-size:12px;color:#fff;opacity:0.9;margin-bottom:16px;text-align:center}
+  .breadcrumb a{color:#fff;text-decoration:underline}
+  .calc-card{background:var(--card-bg);border-radius:18px;padding:28px 24px;box-shadow:0 8px 28px rgba(0,0,0,0.18);margin-bottom:14px}
+  h1{font-size:24px;font-weight:800;line-height:1.25;letter-spacing:-0.4px;margin-bottom:6px;color:#111;text-align:center}
+  .subtitle{font-size:14px;color:var(--text-muted);text-align:center;margin-bottom:22px}
+  .input-group{margin-bottom:18px}
+  .input-group label{display:block;font-size:13px;font-weight:700;color:#111;margin-bottom:6px}
+  .input-group .help{font-size:11px;color:var(--text-muted);margin-bottom:6px}
+  .input-row{display:flex;align-items:center;gap:10px}
+  .input-row input[type=number]{
+    flex:1;padding:12px 14px;border:2px solid #E5E5E5;border-radius:10px;
+    font-size:16px;font-weight:700;color:#111;outline:none;
+    transition:border-color 0.15s;
+  }
+  .input-row input[type=number]:focus{border-color:var(--amber)}
+  .input-row .currency{font-size:14px;color:var(--text-muted);font-weight:600;min-width:36px}
+  input[type=range]{width:100%;margin-top:6px;accent-color:var(--amber-dark)}
+  .results-card{
+    background:linear-gradient(135deg,#FFFBEB,#FEF3C7);
+    border:2px solid var(--amber);border-radius:18px;padding:24px 22px;
+    margin-bottom:14px;
+  }
+  .result-line{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px dashed rgba(146,64,14,0.2);font-size:14px}
+  .result-line:last-of-type{border-bottom:none}
+  .result-label{color:#374151;font-weight:600}
+  .result-value{font-weight:800;color:#92400E;font-size:18px}
+  .highlight-result{
+    background:#92400E;color:#fff;border-radius:14px;padding:18px 16px;
+    margin:16px 0;text-align:center;
+  }
+  .highlight-result .top{font-size:12.5px;font-weight:600;opacity:0.9;letter-spacing:0.3px;text-transform:uppercase}
+  .highlight-result .big{font-size:32px;font-weight:800;letter-spacing:-0.8px;margin:4px 0}
+  .highlight-result .sub{font-size:13px;opacity:0.95}
+  .cta-button{display:block;text-align:center;text-decoration:none;color:#fff;background:linear-gradient(135deg,var(--amber-dark),var(--amber-deeper));padding:18px 20px;border-radius:14px;font-weight:800;font-size:16px;margin:14px 0 10px;box-shadow:0 6px 20px rgba(217,119,6,0.4);transition:transform 0.15s ease}
+  .cta-button:hover{transform:translateY(-2px)}
+  .share-row{display:flex;gap:8px;margin-top:14px}
+  .share-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;text-decoration:none;color:#fff;padding:11px 12px;border-radius:12px;font-weight:700;font-size:13px;transition:transform 0.15s ease}
+  .share-btn:hover{transform:translateY(-2px)}
+  .share-btn.whatsapp{background:#25D366}
+  .share-btn.twitter{background:#1DA1F2}
+  .share-btn.copy{background:#374151}
+  .info-box{font-size:12px;color:var(--text-muted);background:#FFF7ED;border-radius:10px;padding:12px 14px;margin-top:14px;line-height:1.55}
+  .info-box strong{color:#92400E}
+  footer{margin-top:24px;text-align:center;color:#fff;opacity:0.85;font-size:12px;line-height:1.6}
+  .disclosure{background:rgba(255,255,255,0.1);backdrop-filter:blur(6px);border-radius:12px;padding:14px;margin-top:16px;font-size:12px}
+  .disclosure code{background:rgba(0,0,0,0.18);padding:1px 6px;border-radius:4px}
+  .back-link{display:inline-block;margin-top:14px;color:#fff;text-decoration:underline;font-size:14px;font-weight:600}
+  .back-link.center{display:block;text-align:center}
+</style>
+</head>
+<body>
+<div class="container">
+  <p class="breadcrumb"><a href="/">⛏️ Garimpo SP</a> · Calculadora iFood vs Air Fryer</p>
+
+  <div class="calc-card">
+    <h1>🧮 Quanto você gasta com iFood em SP?</h1>
+    <p class="subtitle">Coloca os números abaixo e descobre em quanto tempo a Air Fryer paga ela mesma.</p>
+
+    <div class="input-group">
+      <label for="deliveries">Pedidos de delivery por semana</label>
+      <p class="help">Quantas vezes você pede iFood/Rappi por semana em média?</p>
+      <div class="input-row">
+        <input type="number" id="deliveries" min="0" max="30" step="1" value="4">
+        <span class="currency">/sem</span>
+      </div>
+      <input type="range" id="deliveries-range" min="0" max="30" step="1" value="4">
+    </div>
+
+    <div class="input-group">
+      <label for="ticket">Valor médio do pedido (R$)</label>
+      <p class="help">Quanto custa um pedido típico (já com bebida + sobremesa, sem o frete)?</p>
+      <div class="input-row">
+        <span class="currency">R$</span>
+        <input type="number" id="ticket" min="10" max="500" step="5" value="55">
+      </div>
+      <input type="range" id="ticket-range" min="10" max="200" step="5" value="55">
+    </div>
+
+    <div class="input-group">
+      <label for="frete">Valor médio do frete (R$)</label>
+      <p class="help">Em SP a média é R$ 8-15. Em dia de chuva ou pico, sobe pra R$ 18-25.</p>
+      <div class="input-row">
+        <span class="currency">R$</span>
+        <input type="number" id="frete" min="0" max="50" step="1" value="12">
+      </div>
+      <input type="range" id="frete-range" min="0" max="40" step="1" value="12">
+    </div>
+  </div>
+
+  <div class="results-card">
+    <div class="result-line">
+      <span class="result-label">📦 Gasto delivery / mês</span>
+      <span class="result-value" id="r-mes">R$ 0</span>
+    </div>
+    <div class="result-line">
+      <span class="result-label">📦 Gasto delivery / ano</span>
+      <span class="result-value" id="r-ano">R$ 0</span>
+    </div>
+    <div class="result-line">
+      <span class="result-label">🍳 Cozinhando em casa</span>
+      <span class="result-value" id="r-cozinha">R$ 0/mês</span>
+    </div>
+    <div class="result-line">
+      <span class="result-label">⚡ Energia da Air Fryer</span>
+      <span class="result-value">R$ 19/mês</span>
+    </div>
+
+    <div class="highlight-result">
+      <div class="top">A Air Fryer Mondial 4L paga em</div>
+      <div class="big" id="r-payback">— meses</div>
+      <div class="sub" id="r-payback-sub">e te economiza R$ — no primeiro ano</div>
+    </div>
+
+    <a href="https://www.amazon.com.br/dp/B0BBQ3GBX1?tag=garimposp-20&ascsubtag=calculadora_cta" target="_blank" rel="nofollow noopener" class="cta-button">🛒 Quero a Air Fryer R$ 244</a>
+
+    <div class="share-row">
+      <a href="#" class="share-btn whatsapp" id="share-wa" target="_blank" rel="noopener">💬 WhatsApp</a>
+      <a href="#" class="share-btn twitter" id="share-tw" target="_blank" rel="noopener">𝕏 Twitter</a>
+      <a href="#" class="share-btn copy" id="share-copy">🔗 Copiar link</a>
+    </div>
+
+    <div class="info-box">
+      <strong>📊 Cálculo:</strong> Cozinhando em casa, a redução média de gasto com comida é de 70% (estudo IBGE 2023). Air Fryer Mondial 4L = R$ 244 (única) + R$ 19/mês de energia. Cálculo conservador, retorno real costuma ser melhor.
+    </div>
+  </div>
+
+  <a href="/" class="back-link center">← Voltar pra curadoria principal</a>
+
+  <footer>
+    <div class="disclosure">
+      <strong>📋 Disclosure de afiliação</strong><br>
+      Esta página contém link Amazon Associates (tag <code>garimposp-20</code>). Quando você compra pelo link, o Garimpo SP recebe pequena comissão sem custo extra pra você.
+    </div>
+    <p style="margin-top:14px">© 2026 Garimpo SP · feito por garimpeiros, pra garimpeiros</p>
+  </footer>
+</div>
+
+<script>
+const fmt = v => v.toLocaleString('pt-BR', {minimumFractionDigits: 0, maximumFractionDigits: 0});
+const FATOR_REDUCAO = 0.30; // cozinha custa 30% do delivery (70% economia)
+const ENERGIA_AIR_FRYER = 19; // R$/mês
+const PRECO_AIR_FRYER = 244; // R$
+
+const inputs = ['deliveries', 'ticket', 'frete'];
+const ranges = ['deliveries-range', 'ticket-range', 'frete-range'];
+
+inputs.forEach((id, i) => {
+  const input = document.getElementById(id);
+  const range = document.getElementById(ranges[i]);
+  input.addEventListener('input', () => { range.value = input.value; calc(); });
+  range.addEventListener('input', () => { input.value = range.value; calc(); });
+});
+
+function calc() {
+  const d = +document.getElementById('deliveries').value || 0;
+  const t = +document.getElementById('ticket').value || 0;
+  const f = +document.getElementById('frete').value || 0;
+
+  const gastoSemana = d * (t + f);
+  const gastoMes = gastoSemana * 4.33;
+  const gastoAno = gastoMes * 12;
+
+  const cozinhaMes = (gastoMes * FATOR_REDUCAO) + ENERGIA_AIR_FRYER;
+  const economiaMes = gastoMes - cozinhaMes;
+  const economiaAno = economiaMes * 12 - PRECO_AIR_FRYER;
+
+  document.getElementById('r-mes').textContent = 'R$ ' + fmt(gastoMes);
+  document.getElementById('r-ano').textContent = 'R$ ' + fmt(gastoAno);
+  document.getElementById('r-cozinha').textContent = 'R$ ' + fmt(cozinhaMes) + '/mês';
+
+  if (economiaMes > 0) {
+    const meses = PRECO_AIR_FRYER / economiaMes;
+    let mesesTexto;
+    if (meses < 1) mesesTexto = '< 1 mês';
+    else if (meses < 1.5) mesesTexto = '1 mês';
+    else if (meses < 2.5) mesesTexto = '~2 meses';
+    else mesesTexto = Math.round(meses) + ' meses';
+    document.getElementById('r-payback').textContent = mesesTexto;
+    document.getElementById('r-payback-sub').textContent =
+      'e te economiza R$ ' + fmt(economiaAno) + ' no primeiro ano';
+  } else {
+    document.getElementById('r-payback').textContent = 'Não compensa';
+    document.getElementById('r-payback-sub').textContent = 'pra esse perfil de uso (você pede pouco delivery)';
+  }
+
+  // Update share links
+  const summary = `Eu gasto R$ ${fmt(gastoMes)}/mês com iFood em SP. A Air Fryer pagaria em ${meses < 12 ? Math.round(meses) + ' meses' : 'ano'} e me daria R$ ${fmt(economiaAno)} de economia/ano. Calcula o teu:`;
+  const url = 'https://garimposp.netlify.app/calculadora-ifood-air-fryer.html';
+  document.getElementById('share-wa').href =
+    'https://wa.me/?text=' + encodeURIComponent(summary + ' ' + url);
+  document.getElementById('share-tw').href =
+    'https://twitter.com/intent/tweet?text=' + encodeURIComponent(summary) + '&url=' + encodeURIComponent(url);
+}
+
+document.getElementById('share-copy').addEventListener('click', e => {
+  e.preventDefault();
+  navigator.clipboard.writeText('https://garimposp.netlify.app/calculadora-ifood-air-fryer.html');
+  e.target.textContent = '✅ Copiado!';
+  setTimeout(() => { e.target.textContent = '🔗 Copiar link'; }, 2000);
+});
+
+calc(); // inicial
+</script>
+</body>
+</html>

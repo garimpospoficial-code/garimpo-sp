@@ -105,6 +105,22 @@
     padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;
   }
 
+  /* CALC BANNER */
+  .calc-banner{
+    display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--text);
+    background:linear-gradient(135deg,#FEF3C7,#FBBF24);
+    border:2px solid var(--amber-dark);border-radius:16px;
+    padding:16px 18px;margin-bottom:14px;
+    box-shadow:0 6px 20px rgba(217,119,6,0.25);
+    transition:transform 0.15s ease;
+  }
+  .calc-banner:hover{transform:translateY(-2px)}
+  .calc-emoji{font-size:42px;flex-shrink:0;line-height:1}
+  .calc-text{flex:1}
+  .calc-title{font-weight:800;font-size:15px;color:#92400E;margin-bottom:3px;line-height:1.25}
+  .calc-sub{font-size:12.5px;color:#78350F;font-weight:600}
+  .calc-arrow{font-size:24px;color:#92400E;flex-shrink:0}
+
   /* PRODUCT CARDS */
   main{display:flex;flex-direction:column;gap:12px}
   .product-card{
@@ -252,6 +268,16 @@
 
   <!-- PRODUCTS -->
   <main>
+
+    <!-- CALCULADORA BANNER (CTA destacado, antes dos produtos) -->
+    <a href="/calculadora-ifood-air-fryer.html" class="calc-banner" data-prod="calculadora">
+      <div class="calc-emoji">🧮</div>
+      <div class="calc-text">
+        <div class="calc-title">Quanto você gasta com iFood em SP?</div>
+        <div class="calc-sub">Calcula em 30s · veja a Air Fryer pagar ela mesma</div>
+      </div>
+      <div class="calc-arrow">→</div>
+    </a>
 
     <!-- 1. MONDIAL AIR FRYER (DESTAQUE) -->
     <a href="https://www.amazon.com.br/dp/B0BBQ3GBX1?tag=garimposp-20&ascsubtag=site_mondial" target="_blank" rel="nofollow noopener noreferrer" class="product-card featured" data-prod="mondial">
