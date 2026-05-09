@@ -226,6 +226,19 @@
   .newsletter .hp{position:absolute;left:-9999px}
   .newsletter .success{font-size:13px;font-weight:700;text-align:center;color:#FBBF24;padding:8px}
 
+  /* SHARE SECTION */
+  .share-section{
+    background:rgba(255,255,255,0.15);backdrop-filter:blur(8px);
+    border-radius:18px;padding:18px;margin-top:18px;color:#fff;text-align:center;
+  }
+  .share-label{font-size:13px;font-weight:700;margin-bottom:10px;opacity:0.95}
+  .share-buttons{display:flex;gap:8px;flex-wrap:wrap}
+  .share-btn-row{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;text-decoration:none;color:#fff;padding:11px 12px;border-radius:12px;font-weight:700;font-size:12.5px;transition:transform 0.15s ease;min-width:0}
+  .share-btn-row:hover{transform:translateY(-2px)}
+  .share-btn-row.wa{background:#25D366}
+  .share-btn-row.tg{background:#0088cc}
+  .share-btn-row.tw{background:#1DA1F2}
+
   /* FOOTER */
   footer{
     text-align:center;margin-top:28px;color:rgba(255,255,255,0.85);
@@ -402,6 +415,16 @@
     <a href="/blog/" class="blog-link" data-prod="blog">
       📝 <strong>Blog Garimpo SP</strong> · reviews honestas pro paulistano
     </a>
+
+    <!-- SHARE SECTION -->
+    <div class="share-section">
+      <p class="share-label">📲 Conhece um paulistano que precisa desses achadinhos?</p>
+      <div class="share-buttons">
+        <a href="https://wa.me/?text=Achadinhos%20pra%20paulistano%20em%20um%20s%C3%B3%20lugar%3A%20https%3A%2F%2Fgarimposp.netlify.app" target="_blank" rel="noopener" class="share-btn-row wa" data-prod="share_wa">💬 WhatsApp</a>
+        <a href="https://t.me/share/url?url=https%3A%2F%2Fgarimposp.netlify.app&text=Achadinhos%20pra%20paulistano" target="_blank" rel="noopener" class="share-btn-row tg" data-prod="share_tg">✈️ Telegram</a>
+        <a href="https://twitter.com/intent/tweet?text=Achadinhos%20pra%20paulistano%20em%20um%20s%C3%B3%20lugar&url=https%3A%2F%2Fgarimposp.netlify.app" target="_blank" rel="noopener" class="share-btn-row tw" data-prod="share_tw">𝕏 Twitter</a>
+      </div>
+    </div>
 
     <!-- NEWSLETTER -->
     <div class="newsletter" id="newsletter">
