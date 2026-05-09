@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Permite Googlebot, Bingbot, e demais bots legítimos
+# Bloqueia archive bots opcionalmente
+
+# Localização do sitemap
+Sitemap: https://garimposp.netlify.app/sitemap.xml
