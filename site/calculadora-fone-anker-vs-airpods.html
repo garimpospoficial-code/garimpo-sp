@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Calcula quanto você já gastou com fones bluetooth nos últimos 5 anos e quanto economizaria comprando Anker Q11i. Spoiler: 1 Anker dura mais que 3 AirPods.">
+<meta name="theme-color" content="#F59E0B">
+<meta property="og:title" content="🧮 Calculadora: Fone Anker vs AirPods — economiza quanto em 5 anos?">
+<meta property="og:description" content="Coloca o histórico de fones e descobre quanto a Anker te economiza no longo prazo.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://garimposp.netlify.app/calculadora-fone-anker-vs-airpods.html">
+<meta property="og:image" content="https://garimposp.netlify.app/og-default.png">
+<link rel="canonical" href="https://garimposp.netlify.app/calculadora-fone-anker-vs-airpods.html">
+<title>🧮 Calculadora: Fone Anker vs AirPods em 5 anos · Garimpo SP</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{--amber:#F59E0B;--amber-dark:#D97706;--amber-deeper:#92400E;--bg:#FFF7ED;--card-bg:#FFFFFF;--text:#1A1A1A;--text-muted:#6B7280;--green:#10B981}
+  html,body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:linear-gradient(180deg,var(--amber) 0%,var(--amber-dark) 100%);background-attachment:fixed;color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.55}
+  body{padding:24px 16px 48px}.container{max-width:600px;margin:0 auto}
+  .breadcrumb{font-size:12px;color:#fff;opacity:0.9;margin-bottom:16px;text-align:center}.breadcrumb a{color:#fff;text-decoration:underline}
+  .calc-card{background:var(--card-bg);border-radius:18px;padding:28px 24px;box-shadow:0 8px 28px rgba(0,0,0,0.18);margin-bottom:14px}
+  h1{font-size:22px;font-weight:800;line-height:1.25;margin-bottom:6px;color:#111;text-align:center}
+  .subtitle{font-size:13px;color:var(--text-muted);text-align:center;margin-bottom:22px}
+  .input-group{margin-bottom:18px}
+  .input-group label{display:block;font-size:13px;font-weight:700;color:#111;margin-bottom:6px}
+  .input-group .help{font-size:11px;color:var(--text-muted);margin-bottom:6px}
+  .input-row{display:flex;align-items:center;gap:10px}
+  .input-row input[type=number]{flex:1;padding:12px 14px;border:2px solid #E5E5E5;border-radius:10px;font-size:16px;font-weight:700;color:#111;outline:none;transition:border-color 0.15s}
+  .input-row input[type=number]:focus{border-color:var(--amber)}
+  .input-row .currency{font-size:14px;color:var(--text-muted);font-weight:600;min-width:36px}
+  input[type=range]{width:100%;margin-top:6px;accent-color:var(--amber-dark)}
+  .results-card{background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border:2px solid var(--amber);border-radius:18px;padding:24px 22px;margin-bottom:14px}
+  .result-line{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px dashed rgba(146,64,14,0.2);font-size:14px}
+  .result-line:last-of-type{border-bottom:none}
+  .result-label{color:#374151;font-weight:600}
+  .result-value{font-weight:800;color:#92400E;font-size:16px}
+  .highlight-result{background:#92400E;color:#fff;border-radius:14px;padding:18px 16px;margin:16px 0;text-align:center}
+  .highlight-result .top{font-size:12.5px;font-weight:600;opacity:0.9;letter-spacing:0.3px;text-transform:uppercase}
+  .highlight-result .big{font-size:32px;font-weight:800;letter-spacing:-0.8px;margin:4px 0}
+  .highlight-result .sub{font-size:13px;opacity:0.95}
+  .cta-button{display:block;text-align:center;text-decoration:none;color:#fff;background:linear-gradient(135deg,var(--amber-dark),var(--amber-deeper));padding:18px 20px;border-radius:14px;font-weight:800;font-size:16px;margin:14px 0 10px;box-shadow:0 6px 20px rgba(217,119,6,0.4);transition:transform 0.15s ease}
+  .cta-button:hover{transform:translateY(-2px)}
+  .share-row{display:flex;gap:8px;margin-top:14px}
+  .share-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;text-decoration:none;color:#fff;padding:11px 12px;border-radius:12px;font-weight:700;font-size:13px}
+  .share-btn.whatsapp{background:#25D366}
+  .share-btn.twitter{background:#1DA1F2}
+  .info-box{font-size:12px;color:var(--text-muted);background:#FFF7ED;border-radius:10px;padding:12px 14px;margin-top:14px;line-height:1.55}
+  .info-box strong{color:#92400E}
+  footer{margin-top:24px;text-align:center;color:#fff;opacity:0.85;font-size:12px;line-height:1.6}
+  .disclosure{background:rgba(255,255,255,0.1);backdrop-filter:blur(6px);border-radius:12px;padding:14px;margin-top:16px;font-size:12px}
+  .disclosure code{background:rgba(0,0,0,0.18);padding:1px 6px;border-radius:4px}
+  .back-link{display:inline-block;margin-top:14px;color:#fff;text-decoration:underline;font-size:14px;font-weight:600}
+  .back-link.center{display:block;text-align:center}
+</style>
+</head>
+<body>
+<div class="container">
+  <p class="breadcrumb"><a href="/">⛏️ Garimpo SP</a> · Calculadora Fone Anker vs AirPods</p>
+
+  <div class="calc-card">
+    <h1>🧮 Quanto você já gastou com fones?</h1>
+    <p class="subtitle">Coloca os números e descobre quanto a Anker Q11i te economizaria nos próximos 5 anos.</p>
+
+    <div class="input-group">
+      <label for="qtd">Quantos fones bluetooth você comprou nos últimos 5 anos?</label>
+      <p class="help">Conta AirPods, JBL, Bose, etc — perdidos, quebrados, vendidos.</p>
+      <div class="input-row">
+        <input type="number" id="qtd" min="0" max="20" step="1" value="3">
+        <span class="currency">unid</span>
+      </div>
+      <input type="range" id="qtd-range" min="0" max="10" step="1" value="3">
+    </div>
+
+    <div class="input-group">
+      <label for="preco">Preço médio dos fones (R$)</label>
+      <p class="help">Soma o que pagou e divide. Pra AirPods Pro 2: R$ 1800. JBL: ~R$ 400. Wireless básico: ~R$ 200.</p>
+      <div class="input-row">
+        <span class="currency">R$</span>
+        <input type="number" id="preco" min="100" max="3000" step="50" value="800">
+      </div>
+      <input type="range" id="preco-range" min="100" max="2000" step="50" value="800">
+    </div>
+  </div>
+
+  <div class="results-card">
+    <div class="result-line">
+      <span class="result-label">💸 Já gastou com fones</span>
+      <span class="result-value" id="r-total">R$ 0</span>
+    </div>
+    <div class="result-line">
+      <span class="result-label">📅 Por ano</span>
+      <span class="result-value" id="r-ano">R$ 0</span>
+    </div>
+    <div class="result-line">
+      <span class="result-label">🎧 Anker Q11i custa</span>
+      <span class="result-value">R$ 233 (1× só)</span>
+    </div>
+    <div class="result-line">
+      <span class="result-label">⚡ Bateria Anker</span>
+      <span class="result-value">60h vs 6h AirPods</span>
+    </div>
+
+    <div class="highlight-result">
+      <div class="top">Você teria economizado</div>
+      <div class="big" id="r-economia">R$ 0</div>
+      <div class="sub">trocando todos esses fones por 1 Anker</div>
+    </div>
+
+    <a href="https://www.amazon.com.br/dp/B0DJW5G283?tag=garimposp-20&ascsubtag=calc_fone_cta" target="_blank" rel="nofollow noopener" class="cta-button">🛒 Quero a Anker Q11i · R$ 233</a>
+
+    <div class="share-row">
+      <a href="#" class="share-btn whatsapp" id="share-wa" target="_blank" rel="noopener">💬 WhatsApp</a>
+      <a href="#" class="share-btn twitter" id="share-tw" target="_blank" rel="noopener">𝕏 Twitter</a>
+    </div>
+
+    <div class="info-box">
+      <strong>📊 Cálculo:</strong> Anker Q11i com ANC + 60h bateria + multiponto custa R$ 233 e dura 5+ anos. AirPods Pro 2 custa R$ 1.800 e dura ~3 anos antes da bateria piorar significativamente. Conta envolve preço médio que você forneceu.
+    </div>
+  </div>
+
+  <a href="/" class="back-link center">← Voltar pra curadoria principal</a>
+
+  <footer>
+    <div class="disclosure">
+      <strong>📋 Disclosure de afiliação</strong><br>
+      Esta página contém link Amazon Associates (tag <code>garimposp-20</code>). Você compra pelo link, Garimpo SP recebe pequena comissão sem custo extra pra você.
+    </div>
+    <p style="margin-top:14px">© 2026 Garimpo SP · feito por garimpeiros, pra garimpeiros</p>
+  </footer>
+</div>
+
+<script>
+const fmt = v => v.toLocaleString('pt-BR', {minimumFractionDigits: 0, maximumFractionDigits: 0});
+const ANKER_PRECO = 233;
+
+const inputs = ['qtd', 'preco'];
+const ranges = ['qtd-range', 'preco-range'];
+inputs.forEach((id, i) => {
+  const input = document.getElementById(id);
+  const range = document.getElementById(ranges[i]);
+  input.addEventListener('input', () => { range.value = input.value; calc(); });
+  range.addEventListener('input', () => { input.value = range.value; calc(); });
+});
+
+function calc() {
+  const q = +document.getElementById('qtd').value || 0;
+  const p = +document.getElementById('preco').value || 0;
+  const total = q * p;
+  const porAno = total / 5;
+  const economia = total - ANKER_PRECO;
+
+  document.getElementById('r-total').textContent = 'R$ ' + fmt(total);
+  document.getElementById('r-ano').textContent = 'R$ ' + fmt(porAno);
+  document.getElementById('r-economia').textContent = economia > 0 ? 'R$ ' + fmt(economia) : 'R$ 0';
+
+  const summary = `Em 5 anos eu gastei R$ ${fmt(total)} com fones em SP. A Anker Q11i custa R$ 233 e dura igual. Economia: R$ ${fmt(economia)}. Calcula o teu:`;
+  const url = 'https://garimposp.netlify.app/calculadora-fone-anker-vs-airpods.html';
+  document.getElementById('share-wa').href = 'https://wa.me/?text=' + encodeURIComponent(summary + ' ' + url);
+  document.getElementById('share-tw').href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(summary) + '&url=' + encodeURIComponent(url);
+}
+calc();
+</script>
+</body>
+</html>
