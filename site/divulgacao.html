@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>📣 Central de Divulgação — Garimpo SP (interno)</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{--amber:#F59E0B;--amber-dark:#D97706;--amber-deeper:#92400E;--card-bg:#FFFFFF;--text:#1A1A1A;--text-muted:#6B7280;--green:#10B981;--blue:#0EA5E9;--purple:#8B5CF6}
+  html,body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:linear-gradient(180deg,#1F2937 0%,#111827 100%);color:#fff;min-height:100vh;line-height:1.6}
+  body{padding:20px 16px 48px}.container{max-width:680px;margin:0 auto}
+  .header{text-align:center;margin-bottom:24px}
+  h1{font-size:24px;font-weight:800;margin-bottom:6px}
+  .subtitle{font-size:13px;opacity:0.7}
+  .canal-card{background:#1F2937;border:1px solid #374151;border-radius:14px;padding:18px;margin-bottom:14px}
+  .canal-tag{display:inline-block;font-size:10px;font-weight:800;padding:3px 10px;border-radius:6px;letter-spacing:0.3px;margin-bottom:8px}
+  .canal-tag.bio{background:#FEF3C7;color:#92400E}
+  .canal-tag.story{background:#FCE7F3;color:#9D174D}
+  .canal-tag.dm{background:#DBEAFE;color:#1E40AF}
+  .canal-tag.whatsapp{background:#D1FAE5;color:#065F46}
+  .canal-tag.comment{background:#E0E7FF;color:#3730A3}
+  .canal-tag.reddit{background:#FEE2E2;color:#991B1B}
+  .canal-tag.linkedin{background:#DBEAFE;color:#1E40AF}
+  .canal-name{font-size:16px;font-weight:800;color:#fff;margin-bottom:4px}
+  .canal-tip{font-size:12px;color:#9CA3AF;margin-bottom:12px}
+  .text-box{background:#0F172A;border:1px solid #1F2937;border-radius:10px;padding:14px;font-size:13px;color:#E5E7EB;line-height:1.55;white-space:pre-wrap;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;max-height:280px;overflow-y:auto}
+  .copy-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;background:linear-gradient(135deg,var(--amber-dark),var(--amber-deeper));color:#fff;border:none;padding:11px;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;margin-top:10px;transition:transform 0.15s ease}
+  .copy-btn:hover{transform:translateY(-2px)}
+  .copy-btn.success{background:#10B981}
+  .nav{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px;justify-content:center}
+  .nav a{padding:6px 12px;background:#374151;color:#fff;text-decoration:none;border-radius:18px;font-size:12px;font-weight:600}
+  .nav a:hover{background:#4B5563}
+  details{background:#1F2937;border:1px solid #374151;border-radius:10px;padding:10px 14px;margin-bottom:8px}
+  details summary{font-weight:700;cursor:pointer;font-size:13px}
+  details[open]{padding-bottom:14px}
+  .back-link{display:inline-block;margin-top:24px;color:#FBBF24;text-decoration:underline;font-size:13px}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>📣 Central de Divulgação</h1>
+    <p class="subtitle">Copia e cola direto. Otimizado pra celular.</p>
+  </div>
+
+  <div class="nav">
+    <a href="#bio">Bio</a>
+    <a href="#stories">Stories</a>
+    <a href="#dm">DMs</a>
+    <a href="#whatsapp">WhatsApp</a>
+    <a href="#comentarios">Comentários</a>
+    <a href="#reddit">Reddit</a>
+    <a href="#linkedin">LinkedIn</a>
+  </div>
+
+  <!-- BIO -->
+  <div class="canal-card" id="bio">
+    <span class="canal-tag bio">📱 BIO INSTAGRAM</span>
+    <div class="canal-name">Bio nova pra IG/TikTok</div>
+    <div class="canal-tip">Editar Perfil → Bio → cola. Site → garimposp.netlify.app</div>
+    <pre class="text-box" data-text="bio1">🛍️ Achadinhos pra paulistano viver melhor
+🌧️ Apto pequeno · Mobilidade · Chuva · Cozinha
+🧮 Calc + Quiz no link
+👇 Curadoria honesta</pre>
+    <button class="copy-btn" onclick="copy(this,'bio1')">📋 Copiar bio</button>
+  </div>
+
+  <!-- STORIES -->
+  <div class="canal-card" id="stories">
+    <span class="canal-tag story">📸 STORIES (5 dias)</span>
+    <div class="canal-name">5 stories prontos</div>
+    <div class="canal-tip">Cola 1 por dia. Adiciona link sticker pra garimposp.netlify.app</div>
+
+    <details open>
+      <summary>Dia 1 — Site novo no ar</summary>
+      <pre class="text-box" data-text="s1">🚀 SITE NOVO NO AR
+
+garimposp.netlify.app
+
+Curadoria pra paulistano
+Sem Linktree, direto ao ponto
+
+⬆️ desliza pra cima</pre>
+      <button class="copy-btn" onclick="copy(this,'s1')">📋 Copiar Story 1</button>
+    </details>
+
+    <details>
+      <summary>Dia 2 — Calculadora viral</summary>
+      <pre class="text-box" data-text="s2">🧮 EXPERIMENTA ESSA
+
+Calculei: gasto R$ 1.500/mês
+em iFood em SP.
+
+Air Fryer pagaria em 1 mês.
+Calcula o teu (link na bio):</pre>
+      <button class="copy-btn" onclick="copy(this,'s2')">📋 Copiar Story 2</button>
+    </details>
+
+    <details>
+      <summary>Dia 3 — Quiz</summary>
+      <pre class="text-box" data-text="s3">🎯 QUIZ pra paulistano
+
+5 perguntas
+descobre teu achadinho
+
+Já fez o teu?
+👇 link na bio</pre>
+      <button class="copy-btn" onclick="copy(this,'s3')">📋 Copiar Story 3</button>
+    </details>
+
+    <details>
+      <summary>Dia 4 — Bastidor cozinhando</summary>
+      <pre class="text-box" data-text="s4">🍳 Air Fryer Mondial 4L
+mudou meu jogo em SP
+
+Frango congelado em 18min
+iFood ficou pro passado
+
+Review honesta: link na bio</pre>
+      <button class="copy-btn" onclick="copy(this,'s4')">📋 Copiar Story 4</button>
+    </details>
+
+    <details>
+      <summary>Dia 5 — Push final</summary>
+      <pre class="text-box" data-text="s5">🔥 ÚLTIMA HORA
+
+Mondial 4L em -63%
+R$ 244 frete grátis
+
+Promoção da Amazon mexe rápido.
+👉 link na bio</pre>
+      <button class="copy-btn" onclick="copy(this,'s5')">📋 Copiar Story 5</button>
+    </details>
+  </div>
+
+  <!-- DM AMIGOS -->
+  <div class="canal-card" id="dm">
+    <span class="canal-tag dm">💬 DM PRA AMIGOS</span>
+    <div class="canal-name">Atalho ético pra 1ª venda</div>
+    <div class="canal-tip">Manda pra 5 amigos próximos. Substitui [NOME].</div>
+    <pre class="text-box" data-text="dm1">Eaí [NOME]! Tá vivo?
+
+Lancei um perfil de afiliação Amazon pra paulistano (@garimposp.oficial) e tô testando o funil.
+
+Se tu pensava em comprar Air Fryer pra apto, faz um favor enorme:
+1. Clica no link da bio do meu Insta
+2. Vai cair no garimposp.netlify.app
+3. Escolhe Mondial 4L (R$ 244)
+
+A comissão entra pra mim, tu paga o mesmo preço. Vai me ajudar a fechar a primeira semana 🚀
+
+(testei a Mondial 6 meses, vale demais pra apto pequeno em SP)</pre>
+    <button class="copy-btn" onclick="copy(this,'dm1')">📋 Copiar DM</button>
+  </div>
+
+  <!-- WHATSAPP GROUPS -->
+  <div class="canal-card" id="whatsapp">
+    <span class="canal-tag whatsapp">📱 GRUPOS WHATSAPP</span>
+    <div class="canal-name">5 textos pra grupos diferentes</div>
+    <div class="canal-tip">Manda só em grupos onde faz sentido. Não spammeia.</div>
+
+    <details>
+      <summary>Grupo "vida em SP"</summary>
+      <pre class="text-box" data-text="wa1">Pessoal, não é spam — montei um perfil de achadinhos pra paulistano (apto pequeno, chuva, cozinha esperta). Tem uma calculadora bem legal que mostra quanto você gasta com iFood e em quantos meses uma Air Fryer paga ela mesma.
+
+🧮 https://garimposp.netlify.app/calculadora-ifood-air-fryer.html
+
+Compartilha com quem mora em apto pequeno em SP que pede iFood toda noite 😄</pre>
+      <button class="copy-btn" onclick="copy(this,'wa1')">📋 Copiar</button>
+    </details>
+
+    <details>
+      <summary>Grupo "morar sozinho / apto"</summary>
+      <pre class="text-box" data-text="wa2">Achei útil esse artigo sobre os 10 erros do paulistano que mora sozinho em apto pequeno. Lista os erros + soluções (apto alugado, comprar coisas grandes, iFood toda noite, etc.):
+
+📝 https://garimposp.netlify.app/blog/erros-paulistano-mora-sozinho-apto-pequeno.html
+
+Eu cometia 7 dos 10 quando me mudei pra SP.</pre>
+      <button class="copy-btn" onclick="copy(this,'wa2')">📋 Copiar</button>
+    </details>
+
+    <details>
+      <summary>Grupo "home office / trabalho"</summary>
+      <pre class="text-box" data-text="wa3">Pra quem trabalha home office em apto pequeno em SP, fiz esse guia com 7 itens essenciais (cadeira, fone ANC, monitor, etc.) — testado em 38m² na Vila Madalena:
+
+💼 https://garimposp.netlify.app/blog/setup-home-office-apto-pequeno-sp-2026.html
+
+Total ~R$ 2.300, paga em ~6 meses de produtividade.</pre>
+      <button class="copy-btn" onclick="copy(this,'wa3')">📋 Copiar</button>
+    </details>
+
+    <details>
+      <summary>Grupo "cozinha / receitas"</summary>
+      <pre class="text-box" data-text="wa4">Pra quem mora em apto pequeno em SP e usa Air Fryer pequena, comparei 5 modelos até R$ 300:
+
+🍳 https://garimposp.netlify.app/blog/top-5-air-fryers-ate-300-reais-sao-paulo-2026.html
+
+Vencedor surpreendente. Mondial 4L em -63% essa semana.</pre>
+      <button class="copy-btn" onclick="copy(this,'wa4')">📋 Copiar</button>
+    </details>
+
+    <details>
+      <summary>Grupo "ofertas Amazon"</summary>
+      <pre class="text-box" data-text="wa5">Mondial Air Fryer 4L em -63% essa semana na Amazon — R$ 244, frete grátis. Cabe em apto pequeno (28cm), 110V, 4,8★ com 621 reviews:
+
+🛒 https://garimposp.netlify.app/produto/mondial-air-fryer-4l.html
+
+Promoções da Amazon mexem rápido, vale a pena conferir antes que volte ao preço normal.</pre>
+      <button class="copy-btn" onclick="copy(this,'wa5')">📋 Copiar</button>
+    </details>
+  </div>
+
+  <!-- COMENTÁRIOS -->
+  <div class="canal-card" id="comentarios">
+    <span class="canal-tag comment">💭 COMENTÁRIOS</span>
+    <div class="canal-name">10 comentários pra perfis SP grandes</div>
+    <div class="canal-tip">⚠️ NÃO menciona Garimpo SP. Cria autoridade primeiro.</div>
+
+    <details>
+      <summary>Vida em SP / lifestyle</summary>
+      <pre class="text-box" data-text="c1">Saudades de fazer essa rotina antes da chuva começar 😅</pre>
+      <button class="copy-btn" onclick="copy(this,'c1')">📋 Copiar</button>
+      <pre class="text-box" data-text="c2">Mora há quanto tempo na Vila? Tô pensando em mudar pra Pinheiros</pre>
+      <button class="copy-btn" onclick="copy(this,'c2')">📋 Copiar</button>
+    </details>
+
+    <details>
+      <summary>Apto pequeno / decoração</summary>
+      <pre class="text-box" data-text="c3">Caraca, precisava muito dessa solução do espaço atrás da porta. Tu testou com fita 3M?</pre>
+      <button class="copy-btn" onclick="copy(this,'c3')">📋 Copiar</button>
+      <pre class="text-box" data-text="c4">Acabei de mudar pra um 38m² aqui em SP. Esse hack é game-changer</pre>
+      <button class="copy-btn" onclick="copy(this,'c4')">📋 Copiar</button>
+    </details>
+
+    <details>
+      <summary>Cozinha / receitas</summary>
+      <pre class="text-box" data-text="c5">Vou tentar essa receita de frango congelado essa semana. Faz na Air Fryer ou no forno?</pre>
+      <button class="copy-btn" onclick="copy(this,'c5')">📋 Copiar</button>
+      <pre class="text-box" data-text="c6">Comprei uma Mondial 4L semana passada e tô vivendo isso. Recomendo demais!</pre>
+      <button class="copy-btn" onclick="copy(this,'c6')">📋 Copiar</button>
+    </details>
+
+    <details>
+      <summary>Achadinhos / promoções</summary>
+      <pre class="text-box" data-text="c7">Vi essa Mondial em -63% na Amazon ontem, vale a pena pra apto pequeno em SP</pre>
+      <button class="copy-btn" onclick="copy(this,'c7')">📋 Copiar</button>
+      <pre class="text-box" data-text="c8">Power bank brasileiro do mesmo nicho que o Anker — bem mais barato</pre>
+      <button class="copy-btn" onclick="copy(this,'c8')">📋 Copiar</button>
+    </details>
+
+    <details>
+      <summary>Mobilidade SP</summary>
+      <pre class="text-box" data-text="c9">Comprei um fone Anker Q11i com ANC e mudou a Linha Amarela pra mim</pre>
+      <button class="copy-btn" onclick="copy(this,'c9')">📋 Copiar</button>
+      <pre class="text-box" data-text="c10">Mochila antifurto na Linha Vermelha já me salvou 2x esse mês</pre>
+      <button class="copy-btn" onclick="copy(this,'c10')">📋 Copiar</button>
+    </details>
+  </div>
+
+  <!-- REDDIT -->
+  <div class="canal-card" id="reddit">
+    <span class="canal-tag reddit">🟠 REDDIT /r/saopaulo</span>
+    <div class="canal-name">Post longo (Reddit aceita)</div>
+    <div class="canal-tip">Vai em reddit.com/r/saopaulo → New Post → cola</div>
+    <pre class="text-box" data-text="rd1">Galera, depois de 6 meses morando em 38m² na Vila Madalena, montei uma lista de produtos Amazon que REALMENTE valem pra rotina paulistana. Compartilho aqui pra ajudar quem tá começando ou pra economizar dinheiro.
+
+**5 essenciais:**
+
+1. **Mondial Air Fryer 4L** — R$ 244 — cabe na bancada, paga em 1 mês de iFood que você deixa de pedir.
+2. **Anker Q11i com ANC** — R$ 233 — cancela 90% do barulho de metrô. Substitui AirPods Pro 2 com 1/8 do preço.
+3. **Mochila antifurto + USB** — R$ 149 — Linha Vermelha lotada não tira teu notebook.
+4. **I2GO Power Bank 20kmAh** — R$ 169 — 4-5 cargas, marca brasileira.
+5. **Guarda-chuva anti-vento** — R$ 37 — aguenta 60km/h, testado em 4 temporais SP.
+
+Total: ~R$ 832 pra montar o kit completo paulistano.
+
+Reviews honestas no meu site: garimposp.netlify.app  (full disclosure: tem links de afiliação Amazon, você paga o mesmo preço)
+
+Algum item que vocês adicionariam à lista?</pre>
+    <button class="copy-btn" onclick="copy(this,'rd1')">📋 Copiar post Reddit</button>
+  </div>
+
+  <!-- LINKEDIN -->
+  <div class="canal-card" id="linkedin">
+    <span class="canal-tag linkedin">💼 LINKEDIN</span>
+    <div class="canal-name">Post pro perfil pessoal</div>
+    <div class="canal-tip">Adiciona imagem do avatar Garimpo SP</div>
+    <pre class="text-box" data-text="li1">Lancei um projeto paralelo essa semana: Garimpo SP — curadoria honesta de produtos pra paulistano (apto pequeno, mobilidade, chuva, cozinha).
+
+A premissa: parar de gastar dinheiro em coisas erradas pra rotina específica de SP capital.
+
+Em 1 semana publiquei:
+✅ 11 artigos de review com testes reais
+✅ 3 páginas de produto otimizadas
+✅ 2 calculadoras interativas (iFood vs Air Fryer + fone vs AirPods)
+✅ 1 quiz personalizado
+✅ Schema.org completo + sitemap submetido ao Google
+
+Stack: HTML estático + Netlify + GitHub Actions. Deploy em 3 segundos via 1 comando.
+
+Receita: comissão Amazon Associates (sem custo extra pro comprador).
+
+Compartilho aqui pra colegas que pensam em projeto paralelo de afiliação. O que tem dado certo e o que não tem dado certo nos primeiros dias eu também posto.
+
+🔗 garimposp.netlify.app
+
+#garimposp #afiliacao #saopaulo #amazon #produtividade</pre>
+    <button class="copy-btn" onclick="copy(this,'li1')">📋 Copiar post LinkedIn</button>
+  </div>
+
+  <a href="/" class="back-link">← Voltar pra home</a>
+</div>
+
+<script>
+function copy(btn, key) {
+  const el = document.querySelector(`[data-text="${key}"]`);
+  if (!el) return;
+  navigator.clipboard.writeText(el.textContent).then(() => {
+    const original = btn.innerHTML;
+    btn.innerHTML = '✅ Copiado!';
+    btn.classList.add('success');
+    setTimeout(() => {
+      btn.innerHTML = original;
+      btn.classList.remove('success');
+    }, 2000);
+  });
+}
+</script>
+</body>
+</html>
