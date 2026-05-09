@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Quiz interativo: 5 perguntas e descobre qual achadinho paulistano é pra você. Air Fryer? Fone ANC? Power Bank? Personalizado pra rotina em SP.">
+<meta name="theme-color" content="#F59E0B">
+<meta property="og:title" content="🎯 Quiz: Qual achadinho paulistano é pra você? — Garimpo SP">
+<meta property="og:description" content="Responde 5 perguntas, descobre qual produto resolve teu maior perrengue de paulistano.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://garimposp.netlify.app/quiz-achadinhos-paulistano.html">
+<meta property="og:image" content="https://garimposp.netlify.app/og-default.png">
+<link rel="canonical" href="https://garimposp.netlify.app/quiz-achadinhos-paulistano.html">
+<title>🎯 Quiz: Qual achadinho paulistano é pra você? · Garimpo SP</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{--amber:#F59E0B;--amber-dark:#D97706;--amber-deeper:#92400E;--bg:#FFF7ED;--card-bg:#FFFFFF;--text:#1A1A1A;--text-muted:#6B7280;--green:#10B981}
+  html,body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:linear-gradient(180deg,var(--amber) 0%,var(--amber-dark) 100%);background-attachment:fixed;color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.55}
+  body{padding:24px 16px 48px}.container{max-width:580px;margin:0 auto}
+  .breadcrumb{font-size:12px;color:#fff;opacity:0.9;margin-bottom:16px;text-align:center}.breadcrumb a{color:#fff;text-decoration:underline}
+  .quiz-card{background:var(--card-bg);border-radius:18px;padding:28px 24px;box-shadow:0 8px 28px rgba(0,0,0,0.18);margin-bottom:14px}
+  h1{font-size:22px;font-weight:800;line-height:1.25;margin-bottom:6px;color:#111;text-align:center}
+  .subtitle{font-size:13px;color:var(--text-muted);text-align:center;margin-bottom:22px}
+  .progress{height:6px;background:#E5E5E5;border-radius:3px;overflow:hidden;margin-bottom:24px}
+  .progress-bar{height:100%;background:linear-gradient(90deg,var(--amber),var(--amber-dark));transition:width 0.3s ease;width:20%}
+  .question{font-size:17px;font-weight:700;color:#111;margin-bottom:18px;line-height:1.35}
+  .options{display:flex;flex-direction:column;gap:10px}
+  .option{
+    display:flex;align-items:center;gap:12px;
+    background:#FFF7ED;border:2px solid transparent;
+    padding:14px 16px;border-radius:14px;cursor:pointer;
+    transition:all 0.15s ease;text-align:left;font-size:14px;
+    font-weight:600;color:#111;
+  }
+  .option:hover{background:#FEF3C7;border-color:var(--amber)}
+  .option .icon{font-size:24px;flex-shrink:0}
+  .nav-row{display:flex;justify-content:space-between;margin-top:20px;font-size:13px;color:var(--text-muted)}
+  .step-indicator{font-weight:700;color:var(--amber-dark)}
+  .result-hero{text-align:center;margin-bottom:18px}
+  .result-emoji{font-size:64px;margin-bottom:8px}
+  .result-title{font-size:24px;font-weight:800;color:#111;margin-bottom:4px}
+  .result-product{font-size:18px;font-weight:700;color:var(--amber-dark);margin-bottom:16px}
+  .result-summary{background:#FFF7ED;border-radius:12px;padding:14px;font-size:14px;line-height:1.55;margin-bottom:14px}
+  .cta-button{display:block;text-align:center;text-decoration:none;color:#fff;background:linear-gradient(135deg,var(--amber-dark),var(--amber-deeper));padding:16px 20px;border-radius:14px;font-weight:800;font-size:15px;margin:14px 0 8px;box-shadow:0 6px 20px rgba(217,119,6,0.35)}
+  .restart-btn{display:block;text-align:center;background:none;border:2px solid #E5E5E5;color:var(--text-muted);padding:11px;border-radius:14px;font-weight:600;font-size:13px;cursor:pointer;width:100%;margin-top:8px}
+  .also-section{margin-top:18px;padding-top:18px;border-top:1px dashed #E5E5E5}
+  .also-section h3{font-size:13px;font-weight:700;color:var(--text-muted);margin-bottom:10px;text-align:center}
+  .also-list{display:flex;flex-direction:column;gap:8px}
+  .also-link{display:flex;align-items:center;gap:10px;padding:10px 12px;background:#FFF7ED;border-radius:10px;text-decoration:none;color:#111;font-size:13px;font-weight:600;transition:background 0.15s}
+  .also-link:hover{background:#FEF3C7}
+  .also-link .also-icon{font-size:20px}
+  .also-link .also-arrow{margin-left:auto;color:var(--amber-dark);font-weight:800}
+  .share-row{display:flex;gap:8px;margin-top:14px}
+  .share-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;text-decoration:none;color:#fff;padding:11px 12px;border-radius:12px;font-weight:700;font-size:13px}
+  .share-btn.whatsapp{background:#25D366}
+  .share-btn.twitter{background:#1DA1F2}
+  footer{margin-top:24px;text-align:center;color:#fff;opacity:0.85;font-size:12px;line-height:1.6}
+  .disclosure{background:rgba(255,255,255,0.1);backdrop-filter:blur(6px);border-radius:12px;padding:14px;margin-top:16px;font-size:12px}
+  .disclosure code{background:rgba(0,0,0,0.18);padding:1px 6px;border-radius:4px}
+  .back-link{display:inline-block;margin-top:14px;color:#fff;text-decoration:underline;font-size:14px;font-weight:600}
+  .back-link.center{display:block;text-align:center}
+  .hidden{display:none}
+</style>
+</head>
+<body>
+<div class="container">
+  <p class="breadcrumb"><a href="/">⛏️ Garimpo SP</a> · Quiz Achadinhos</p>
+
+  <div class="quiz-card" id="quiz-screen">
+    <h1>🎯 Qual achadinho é pra você?</h1>
+    <p class="subtitle">5 perguntas pra descobrir qual produto resolve teu maior perrengue de paulistano.</p>
+    <div class="progress"><div class="progress-bar" id="progress-bar" style="width:20%"></div></div>
+    <p class="question" id="question-text">Carregando...</p>
+    <div class="options" id="options-container"></div>
+    <div class="nav-row">
+      <span></span>
+      <span class="step-indicator" id="step-indicator">1/5</span>
+    </div>
+  </div>
+
+  <div class="quiz-card hidden" id="result-screen">
+    <div class="result-hero">
+      <div class="result-emoji" id="result-emoji">🎯</div>
+      <p class="result-title">Seu achadinho é</p>
+      <p class="result-product" id="result-product">—</p>
+    </div>
+    <div class="result-summary" id="result-summary"></div>
+    <a id="result-cta" href="#" target="_blank" rel="nofollow noopener" class="cta-button">🛒 Comprar agora na Amazon</a>
+    <a id="result-readmore" href="#" class="cta-button" style="background:linear-gradient(135deg,#1F2937,#374151);box-shadow:0 6px 20px rgba(0,0,0,0.2)">📖 Ler review completa</a>
+
+    <div class="also-section">
+      <h3>Top 3 pra teu perfil:</h3>
+      <div class="also-list" id="also-list"></div>
+    </div>
+
+    <div class="share-row">
+      <a href="#" id="share-wa" class="share-btn whatsapp" target="_blank" rel="noopener">💬 WhatsApp</a>
+      <a href="#" id="share-tw" class="share-btn twitter" target="_blank" rel="noopener">𝕏 Twitter</a>
+    </div>
+
+    <button class="restart-btn" onclick="restartQuiz()">↻ Refazer o quiz</button>
+  </div>
+
+  <a href="/" class="back-link center">← Voltar pra curadoria principal</a>
+
+  <footer>
+    <div class="disclosure">
+      <strong>📋 Disclosure de afiliação</strong><br>
+      Esta página contém links Amazon Associates (tag <code>garimposp-20</code>). Você compra pelo link, Garimpo SP recebe pequena comissão sem custo extra pra você.
+    </div>
+    <p style="margin-top:14px">© 2026 Garimpo SP · feito por garimpeiros, pra garimpeiros</p>
+  </footer>
+</div>
+
+<script>
+const PRODUCTS = {
+  airfryer: { name: "Mondial Air Fryer 4L", emoji: "🍳", price: "R$ 244", asin: "B0BBQ3GBX1", subtag: "quiz_airfryer", review: "/blog/melhor-air-fryer-apto-pequeno-sp.html", summary: "iFood na chuva é caro. Apto pequeno não cabe forno. Air Fryer 4L resolve as duas dores: cabe na bancada (28cm), esquenta em 3 min, frita sem óleo. Paga em 1 mês de delivery que você deixa de pedir." },
+  fone: { name: "Anker Q11i ANC", emoji: "🎧", price: "R$ 233", asin: "B0DJW5G283", subtag: "quiz_fone", review: "/blog/fone-anc-metro-sao-paulo-anker-q11i.html", summary: "Linha Amarela 18h sexta = 85 dB de barulho. ANC do Anker corta 90% disso. 60h de bateria, multiponto, R$ 233 (1/8 do AirPods Pro 2). Pra quem pega metrô em SP, é mudança de vida." },
+  powerbank: { name: "I2GO Power Bank 20kmAh", emoji: "🔋", price: "R$ 169", asin: "B094YR4SLJ", subtag: "quiz_powerbank", review: "/blog/power-bank-dia-inteiro-sao-paulo-i2go-20000mah.html", summary: "Sai 7h, volta 21h. Celular não aguenta. Power bank 20kmAh dá 4-5 cargas, Power Delivery 20W (carga rápida iPhone), 3 portas. Marca brasileira, frete grátis Amazon." },
+  guardachuva: { name: "Guarda-chuva Anti-Vento", emoji: "☂️", price: "R$ 37", asin: "B0D1MMCMRP", subtag: "quiz_guardachuva", review: "/blog/guarda-chuva-anti-vento-temporal-sao-paulo.html", summary: "SP capital tem 30+ dias de chuva forte por ano. Guarda-chuva de R$ 37 com 10 hastes de fibra reforçada aguenta vento de 60km/h. Testado em 4 temporais. Cabe em qualquer bolsa." },
+  mochila: { name: "Mochila Antifurto Notebook", emoji: "🎒", price: "R$ 149", asin: "B0DVZBXSLK", subtag: "quiz_mochila", review: "/blog/mochila-antifurto-notebook-sao-paulo.html", summary: "Linha Vermelha lotada não tira teu notebook. Compartimento principal contra costas, cadeado integrado, USB externo, capa de chuva. Pra quem carrega notebook todo dia em SP." },
+  songmics: { name: "SONGMICS Guarda-Roupa Portátil", emoji: "👕", price: "R$ 273", asin: "B09R4KQ2LY", subtag: "quiz_songmics", review: null, summary: "Apto alugado em SP não pode furar parede. Guarda-roupa portátil monta sem ferramenta, aguenta peso, capa protege a roupa. Frete grátis Amazon." }
+};
+
+const QUESTIONS = [
+  {
+    text: "1. Qual desses te incomoda MAIS no dia a dia em SP?",
+    options: [
+      { icon: "🌧️", label: "Chuva pegando de surpresa", scores: { guardachuva: 3, mochila: 1 } },
+      { icon: "🚇", label: "Barulho de metrô lotado", scores: { fone: 3 } },
+      { icon: "🍕", label: "iFood ficou caríssimo", scores: { airfryer: 3 } },
+      { icon: "🔋", label: "Celular morre antes do dia acabar", scores: { powerbank: 3 } }
+    ]
+  },
+  {
+    text: "2. Como você passa MAIS tempo?",
+    options: [
+      { icon: "🏠", label: "Em casa cozinhando ou comendo", scores: { airfryer: 2 } },
+      { icon: "🚉", label: "Em transporte público / metrô", scores: { fone: 2, powerbank: 1 } },
+      { icon: "💻", label: "Home office com pausas curtas", scores: { fone: 1, mochila: 1, airfryer: 1 } },
+      { icon: "🚶", label: "Andando muito pela cidade", scores: { powerbank: 2, guardachuva: 1, mochila: 1 } }
+    ]
+  },
+  {
+    text: "3. Quanto pode investir agora num achadinho?",
+    options: [
+      { icon: "💸", label: "Até R$ 50 — só o essencial", scores: { guardachuva: 3 } },
+      { icon: "💰", label: "Até R$ 200 — algo bom mas barato", scores: { mochila: 2, powerbank: 2 } },
+      { icon: "💵", label: "Até R$ 300 — qualidade boa", scores: { airfryer: 2, fone: 2, songmics: 2 } },
+      { icon: "🤑", label: "Sem limite — quero o melhor", scores: { airfryer: 1, fone: 1, songmics: 1 } }
+    ]
+  },
+  {
+    text: "4. Onde você mora?",
+    options: [
+      { icon: "🏢", label: "Apto alugado pequeno (até 50m²)", scores: { songmics: 2, airfryer: 2 } },
+      { icon: "🏘️", label: "Apto próprio médio (50-80m²)", scores: { airfryer: 1, fone: 1 } },
+      { icon: "🏠", label: "Casa ou apto grande", scores: { airfryer: 1, fone: 1 } },
+      { icon: "🛏️", label: "Mora com amigos / quarto", scores: { fone: 2, mochila: 1 } }
+    ]
+  },
+  {
+    text: "5. Qual frase descreve melhor sua semana?",
+    options: [
+      { icon: "🚀", label: "Saio de manhã, volto de noite, vivo na rua", scores: { powerbank: 3, fone: 1, mochila: 1 } },
+      { icon: "💼", label: "Carrego notebook todo dia + reuniões", scores: { mochila: 3, fone: 2 } },
+      { icon: "🍳", label: "Tenho que economizar com comida em SP", scores: { airfryer: 3 } },
+      { icon: "👕", label: "Apto pequeno, sem espaço pra nada", scores: { songmics: 3, airfryer: 1 } }
+    ]
+  }
+];
+
+let currentStep = 0;
+let scores = { airfryer: 0, fone: 0, powerbank: 0, guardachuva: 0, mochila: 0, songmics: 0 };
+
+function renderQuestion() {
+  const q = QUESTIONS[currentStep];
+  document.getElementById('question-text').textContent = q.text;
+  document.getElementById('step-indicator').textContent = `${currentStep + 1}/5`;
+  document.getElementById('progress-bar').style.width = ((currentStep + 1) / 5 * 100) + '%';
+
+  const container = document.getElementById('options-container');
+  container.innerHTML = '';
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option';
+    btn.innerHTML = `<span class="icon">${opt.icon}</span> ${opt.label}`;
+    btn.onclick = () => answer(opt);
+    container.appendChild(btn);
+  });
+}
+
+function answer(opt) {
+  for (const [k, v] of Object.entries(opt.scores)) {
+    scores[k] = (scores[k] || 0) + v;
+  }
+  currentStep++;
+  if (currentStep >= QUESTIONS.length) {
+    showResult();
+  } else {
+    renderQuestion();
+  }
+}
+
+function showResult() {
+  const ranked = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+  const winner = PRODUCTS[ranked[0][0]];
+
+  document.getElementById('quiz-screen').classList.add('hidden');
+  document.getElementById('result-screen').classList.remove('hidden');
+
+  document.getElementById('result-emoji').textContent = winner.emoji;
+  document.getElementById('result-product').textContent = winner.name + ' · ' + winner.price;
+  document.getElementById('result-summary').textContent = winner.summary;
+  document.getElementById('result-cta').href = `https://www.amazon.com.br/dp/${winner.asin}?tag=garimposp-20&ascsubtag=${winner.subtag}_winner`;
+
+  const readmore = document.getElementById('result-readmore');
+  if (winner.review) {
+    readmore.href = winner.review;
+    readmore.style.display = 'block';
+  } else {
+    readmore.style.display = 'none';
+  }
+
+  // Top 3 also liked
+  const alsoList = document.getElementById('also-list');
+  alsoList.innerHTML = '';
+  ranked.slice(1, 4).forEach(([key, _]) => {
+    const p = PRODUCTS[key];
+    const a = document.createElement('a');
+    a.className = 'also-link';
+    a.href = `https://www.amazon.com.br/dp/${p.asin}?tag=garimposp-20&ascsubtag=${p.subtag}_also`;
+    a.target = '_blank';
+    a.rel = 'nofollow noopener';
+    a.innerHTML = `<span class="also-icon">${p.emoji}</span> <span><strong>${p.name}</strong><br><span style="font-size:11px;color:#6B7280">${p.price}</span></span> <span class="also-arrow">→</span>`;
+    alsoList.appendChild(a);
+  });
+
+  // Share buttons
+  const shareText = `Meu achadinho paulistano é ${winner.name} (${winner.price}). Faz o quiz tu também:`;
+  const url = 'https://garimposp.netlify.app/quiz-achadinhos-paulistano.html';
+  document.getElementById('share-wa').href = 'https://wa.me/?text=' + encodeURIComponent(shareText + ' ' + url);
+  document.getElementById('share-tw').href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText) + '&url=' + encodeURIComponent(url);
+}
+
+function restartQuiz() {
+  currentStep = 0;
+  scores = { airfryer: 0, fone: 0, powerbank: 0, guardachuva: 0, mochila: 0, songmics: 0 };
+  document.getElementById('result-screen').classList.add('hidden');
+  document.getElementById('quiz-screen').classList.remove('hidden');
+  renderQuestion();
+}
+
+renderQuestion();
+</script>
+</body>
+</html>
