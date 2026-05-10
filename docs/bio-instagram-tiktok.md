@@ -1,6 +1,8 @@
 # Bio Instagram + TikTok — Garimpo SP
 
 > Pós-deploy do site `garimposp.netlify.app` em 2026-05-08, a bio precisa apontar pro site novo (não mais Linktree). Site funciona como Linktree próprio + curadoria editorial + tracking de afiliação.
+>
+> **Atualização 2026-05-10:** Garimpa (mascote virtual IA) foi lançada. Bio agora deve incluir disclosure clara de que ela é mascote virtual, não pessoa real. Inspiração: Lu do Magalu.
 
 ---
 
@@ -8,7 +10,19 @@
 
 Limite: 150 caracteres no texto + 1 link clicável.
 
-### Versão A — Direta (recomendada inicial)
+### 🤖 Versão GARIMPA (recomendada após lançamento mascote)
+
+```
+Oi! Sou a Garimpa 🤖 mascote virtual do Garimpo SP
+Achadinhos pra paulistano · Apto · Chuva · Mobilidade
+🔗 garimposp.netlify.app
+```
+
+> Disclosure: "mascote virtual" deixa claro que é IA, sem esconder nada. Modelo Magalu/Lu.
+
+---
+
+### Versão A — Direta (pré-Garimpa)
 
 ```
 🛍️ Achadinhos pra paulistano viver melhor
@@ -69,13 +83,22 @@ Produtos que resolvem dor de paulistano
 🔗 garimposp.netlify.app
 ```
 
+### 🤖 Versão GARIMPA TikTok
+
+```
+Garimpa 🤖 mascote IA · achadinhos SP
+🔗 garimposp.netlify.app
+```
+
 ---
 
 ## 🎯 Recomendação Ultron
 
-**Instagram → Versão A** (direta, emoji-friendly, lista os recortes principais — leitor sabe imediatamente o que vai encontrar)
+**(2026-05-10) — Trocar pra versão GARIMPA assim que primeira foto da Garimpa for postada (cria momentum + disclosure imediato).**
 
-**TikTok → Versão A** (mesmo princípio, ajustado pro limite de 80 char)
+**Pré-Garimpa: Instagram → Versão A** (direta, emoji-friendly, lista os recortes principais — leitor sabe imediatamente o que vai encontrar)
+
+**TikTok → Versão GARIMPA TikTok** (após 1ª foto Garimpa) ou **Versão A** (mesmo princípio, ajustado pro limite de 80 char)
 
 ---
 
