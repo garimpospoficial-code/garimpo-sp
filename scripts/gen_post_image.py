@@ -1,14 +1,14 @@
 """
-Gera imagens pra posts do Garimpo SP usando Gemini Imagen 3.
+Gera imagens pra posts do Garimpo SP usando Gemini 2.5 Flash Image (Nano Banana).
 
 Uso:
-  python scripts/gen_post_image.py --produto airfryer --tema chuva --output content/posts/post_novo.png
+  python scripts/gen_post_image.py --tema airfryer --output content/posts/post_novo.png
 
 Pré-requisitos:
-  pip install google-generativeai pillow python-dotenv
+  pip install google-genai pillow python-dotenv
   Configurar GEMINI_API_KEY em .env
 
-API: https://ai.google.dev/gemini-api/docs/image-generation
+API: https://ai.google.dev/gemini-api/docs/image-generation (modelo Nano Banana)
 """
 import os
 import sys
@@ -19,7 +19,7 @@ try:
     from dotenv import load_dotenv
     load_dotenv()
 except ImportError:
-    pass  # python-dotenv opcional
+    pass
 
 try:
     from google import genai
@@ -27,104 +27,108 @@ try:
     from PIL import Image
     from io import BytesIO
 except ImportError as e:
-    print(f"❌ Falta dependência: {e}")
+    print(f"[ERRO] Falta dependencia: {e}")
     print("Instala: pip install google-genai pillow python-dotenv")
     sys.exit(1)
 
 
 PROMPTS_BASE = {
     "airfryer": (
-        "Mobile Instagram post in Portuguese for paulistano audience. "
-        "Title: '5 ACHADINHOS PRA COZINHA EM SP'. "
-        "Vibrant orange gradient background (#F59E0B to #D97706), "
-        "white modern bold sans-serif text, list of 5 items, "
-        "1:1 square 1080x1080, kitchen icon top-right, "
-        "logo 'Garimpo SP' bottom-right with pickaxe emoji, "
-        "professional design, high contrast"
+        "Mobile Instagram post 1080x1080 1:1 square format. "
+        "Vibrant orange to amber gradient background. "
+        "Top: bold white sans-serif Portuguese title 'AIR FRYER PRA APTO PEQUENO EM SP'. "
+        "Center: clean illustration of a black Mondial 4L air fryer on white kitchen counter. "
+        "Below: 5 bullet items in white text: "
+        "1. Cabe na bancada (28cm), "
+        "2. Esquenta em 3 minutos, "
+        "3. Substitui forno em 80 porcento, "
+        "4. 110V, "
+        "5. R$ 244 frete gratis. "
+        "Bottom right: small 'Garimpo SP' logo with pickaxe icon. "
+        "Style: modern, clean, high contrast, professional Instagram aesthetic"
     ),
     "chuva": (
-        "Mobile Instagram post in Portuguese for paulistano audience. "
-        "Title: '5 ACHADINHOS PRA SOBREVIVER À CHUVA EM SP'. "
-        "Vibrant orange gradient background (#F59E0B to #D97706), "
-        "white modern bold sans-serif text, list of 5 rain-survival items, "
-        "1:1 square 1080x1080, umbrella icon top-right, "
-        "logo 'Garimpo SP' bottom-right, professional design"
+        "Mobile Instagram post 1080x1080 1:1 square. "
+        "Deep blue to amber gradient. "
+        "Top: bold white title '5 ACHADINHOS PRA SOBREVIVER A CHUVA EM SP'. "
+        "Center: stylized illustration of black umbrella in rain with São Paulo skyline. "
+        "Below: 5 items white text: 1. Guarda-chuva anti-vento, 2. Capa de mochila, "
+        "3. Galocha, 4. Toalha microfibra, 5. Sapato impermeavel. "
+        "Bottom right: 'Garimpo SP' logo. Modern professional design"
     ),
     "mobilidade": (
-        "Mobile Instagram post in Portuguese for paulistano audience. "
+        "Instagram post 1080x1080 square. Orange-amber gradient. "
         "Title: '5 ACHADINHOS QUE SALVAM O TRANSPORTE EM SP'. "
-        "Orange gradient background, white modern bold text, "
-        "list of 5 commute items (headphones, power bank, mochila), "
-        "1:1 square 1080x1080, subway icon, Garimpo SP logo bottom"
+        "Center: illustration of person in subway with backpack and headphones. "
+        "List of 5: power bank, fone ANC, garrafa termica, capa de chuva, snack. "
+        "Garimpo SP logo bottom. Professional"
     ),
     "apto": (
-        "Mobile Instagram post in Portuguese for paulistano audience. "
-        "Title: '5 ACHADINHOS PRA APTO PEQUENO DE SP'. "
-        "Orange gradient background, white modern bold text, "
-        "list of 5 small-apartment items, 1:1 square 1080x1080, "
-        "apartment icon, Garimpo SP logo bottom"
+        "Instagram post 1080x1080 square. Orange gradient. "
+        "Title: '5 HACKS PRA APTO ALUGADO EM SP'. "
+        "Center: small modern Sao Paulo apartment interior, 38m2 layout, "
+        "with portable wardrobe (SONGMICS), space-saving solutions. "
+        "List of 5 hacks. Garimpo SP logo bottom"
     ),
     "powerbank": (
-        "Mobile Instagram post in Portuguese. "
-        "Title: 'CELULAR NÃO MORRE MAIS EM SP'. "
-        "Orange gradient, white bold text, "
-        "I2GO power bank product photo center, "
-        "1:1 square, '4-5 cargas · R$ 169' tagline, Garimpo SP logo"
+        "Instagram post 1080x1080 square. Tech blue to amber gradient. "
+        "Title: 'CELULAR NAO MORRE MAIS EM SP'. "
+        "Center: black power bank I2GO 20kmAh with USB-C cable connected to phone. "
+        "Battery icon showing full charge. "
+        "Tagline: '4-5 cargas - R$ 169 - frete gratis'. "
+        "Garimpo SP logo bottom"
     ),
     "fone": (
-        "Mobile Instagram post in Portuguese. "
-        "Title: 'METRÔ SP TEM SOLUÇÃO'. "
-        "Orange gradient, white bold text, "
-        "Anker Q11i headphones product photo, "
-        "ANC active noise cancellation visualization, '60h bateria · R$ 233', "
-        "Garimpo SP logo bottom"
+        "Instagram post 1080x1080 square. Dark amber gradient. "
+        "Title: 'METRO SP TEM SOLUCAO'. "
+        "Center: black Anker Soundcore Q11i over-ear headphones. "
+        "Sound waves visualization showing noise cancellation. "
+        "Tagline: 'ANC - 60h bateria - R$ 233'. "
+        "Garimpo SP logo bottom right"
     ),
 }
 
 
 def gen_image(tema: str, output_path: str) -> None:
-    """Gera imagem usando Gemini Imagen."""
     api_key = os.getenv("GEMINI_API_KEY")
     if not api_key:
-        print("❌ GEMINI_API_KEY não configurada no .env")
+        print("[ERRO] GEMINI_API_KEY nao configurada no .env")
         sys.exit(1)
 
     prompt = PROMPTS_BASE.get(tema)
     if not prompt:
-        print(f"❌ Tema '{tema}' não conhecido. Disponíveis: {list(PROMPTS_BASE.keys())}")
+        print(f"[ERRO] Tema '{tema}' nao conhecido. Disponiveis: {list(PROMPTS_BASE.keys())}")
         sys.exit(1)
 
     client = genai.Client(api_key=api_key)
 
-    print(f"🎨 Gerando imagem '{tema}'...")
-    response = client.models.generate_images(
-        model="imagen-3.0-generate-002",
-        prompt=prompt,
-        config=types.GenerateImagesConfig(
-            number_of_images=1,
-            aspect_ratio="1:1",
-            output_mime_type="image/png",
-        ),
+    print(f"Gerando imagem '{tema}' via Gemini 2.5 Flash Image (Nano Banana)...")
+
+    response = client.models.generate_content(
+        model="gemini-2.5-flash-image",
+        contents=[prompt],
     )
 
-    if not response.generated_images:
-        print("❌ Geração retornou vazio")
+    img_saved = False
+    for part in response.candidates[0].content.parts:
+        if part.inline_data is not None:
+            img = Image.open(BytesIO(part.inline_data.data))
+            Path(output_path).parent.mkdir(parents=True, exist_ok=True)
+            img.save(output_path)
+            print(f"[OK] Imagem salva em {output_path} ({img.size})")
+            img_saved = True
+        elif part.text:
+            print(f"[INFO] Texto retornado: {part.text[:100]}...")
+
+    if not img_saved:
+        print("[ERRO] Resposta nao continha imagem")
         sys.exit(1)
-
-    img_bytes = response.generated_images[0].image.image_bytes
-    img = Image.open(BytesIO(img_bytes))
-
-    Path(output_path).parent.mkdir(parents=True, exist_ok=True)
-    img.save(output_path)
-
-    print(f"✅ Imagem salva em {output_path} ({img.size})")
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Gera imagem pra post Garimpo SP")
-    parser.add_argument("--tema", required=True, choices=list(PROMPTS_BASE.keys()),
-                        help="Tema da imagem")
-    parser.add_argument("--output", required=True, help="Caminho do arquivo PNG de saída")
+    parser = argparse.ArgumentParser(description="Gera imagem pra post Garimpo SP via Nano Banana")
+    parser.add_argument("--tema", required=True, choices=list(PROMPTS_BASE.keys()))
+    parser.add_argument("--output", required=True, help="Caminho do PNG de saida")
     args = parser.parse_args()
     gen_image(args.tema, args.output)
 
