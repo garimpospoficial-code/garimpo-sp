@@ -8,9 +8,9 @@
 <meta property="og:title" content="🎯 Quiz: Qual achadinho paulistano é pra você? — Garimpo SP">
 <meta property="og:description" content="Responde 5 perguntas, descobre qual produto resolve teu maior perrengue de paulistano.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://garimposp.netlify.app/quiz-achadinhos-paulistano.html">
-<meta property="og:image" content="https://garimposp.netlify.app/og-default.png">
-<link rel="canonical" href="https://garimposp.netlify.app/quiz-achadinhos-paulistano.html">
+<meta property="og:url" content="https://garimpo-sp.vercel.app/quiz-achadinhos-paulistano.html">
+<meta property="og:image" content="https://garimpo-sp.vercel.app/og-default.png">
+<link rel="canonical" href="https://garimpo-sp.vercel.app/quiz-achadinhos-paulistano.html">
 <title>🎯 Quiz: Qual achadinho paulistano é pra você? · Garimpo SP</title>
 <style>
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -238,7 +238,7 @@ function showResult() {
 
   // Share buttons
   const shareText = `Meu achadinho paulistano é ${winner.name} (${winner.price}). Faz o quiz tu também:`;
-  const url = 'https://garimposp.netlify.app/quiz-achadinhos-paulistano.html';
+  const url = 'https://garimpo-sp.vercel.app/quiz-achadinhos-paulistano.html';
   document.getElementById('share-wa').href = 'https://wa.me/?text=' + encodeURIComponent(shareText + ' ' + url);
   document.getElementById('share-tw').href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText) + '&url=' + encodeURIComponent(url);
 }

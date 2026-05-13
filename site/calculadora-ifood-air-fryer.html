@@ -9,11 +9,11 @@
 <meta property="og:title" content="🧮 Calculadora: quanto você gasta com iFood em SP? — Garimpo SP">
 <meta property="og:description" content="Coloca os números, descobre quanto a Air Fryer te economiza por ano. Spoiler: paga em ~2 meses.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://garimposp.netlify.app/calculadora-ifood-air-fryer.html">
-<meta property="og:image" content="https://garimposp.netlify.app/og-calculadora.png">
+<meta property="og:url" content="https://garimpo-sp.vercel.app/calculadora-ifood-air-fryer.html">
+<meta property="og:image" content="https://garimpo-sp.vercel.app/og-calculadora.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://garimposp.netlify.app/og-calculadora.png">
-<link rel="canonical" href="https://garimposp.netlify.app/calculadora-ifood-air-fryer.html">
+<meta name="twitter:image" content="https://garimpo-sp.vercel.app/og-calculadora.png">
+<link rel="canonical" href="https://garimpo-sp.vercel.app/calculadora-ifood-air-fryer.html">
 <title>🧮 Calculadora: iFood vs Air Fryer — Quanto você gasta em SP? · Garimpo SP</title>
 <script type="application/ld+json">
 {
@@ -23,7 +23,7 @@
   "description": "Calcule quanto você gasta com delivery em SP e quanto economiza usando uma Air Fryer Mondial 4L.",
   "applicationCategory": "FinanceApplication",
   "operatingSystem": "Web",
-  "url": "https://garimposp.netlify.app/calculadora-ifood-air-fryer.html",
+  "url": "https://garimpo-sp.vercel.app/calculadora-ifood-air-fryer.html",
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "BRL" }
 }
 </script>
@@ -229,7 +229,7 @@ function calc() {
 
   // Update share links
   const summary = `Eu gasto R$ ${fmt(gastoMes)}/mês com iFood em SP. A Air Fryer pagaria em ${meses < 12 ? Math.round(meses) + ' meses' : 'ano'} e me daria R$ ${fmt(economiaAno)} de economia/ano. Calcula o teu:`;
-  const url = 'https://garimposp.netlify.app/calculadora-ifood-air-fryer.html';
+  const url = 'https://garimpo-sp.vercel.app/calculadora-ifood-air-fryer.html';
   document.getElementById('share-wa').href =
     'https://wa.me/?text=' + encodeURIComponent(summary + ' ' + url);
   document.getElementById('share-tw').href =
@@ -238,7 +238,7 @@ function calc() {
 
 document.getElementById('share-copy').addEventListener('click', e => {
   e.preventDefault();
-  navigator.clipboard.writeText('https://garimposp.netlify.app/calculadora-ifood-air-fryer.html');
+  navigator.clipboard.writeText('https://garimpo-sp.vercel.app/calculadora-ifood-air-fryer.html');
   e.target.textContent = '✅ Copiado!';
   setTimeout(() => { e.target.textContent = '🔗 Copiar link'; }, 2000);
 });

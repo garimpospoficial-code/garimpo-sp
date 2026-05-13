@@ -5,4 +5,4 @@ Allow: /
 # Bloqueia archive bots opcionalmente
 
 # Localização do sitemap
-Sitemap: https://garimposp.netlify.app/sitemap.xml
+Sitemap: https://garimpo-sp.vercel.app/sitemap.xml
