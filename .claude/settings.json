@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(git push:*)",
+      "Bash(git push origin main)",
+      "Bash(git push origin:*)",
+      "Bash(git push -u:*)",
+      "Bash(netlify:*)",
+      "Bash(netlify deploy:*)",
+      "Bash(npx netlify-cli:*)",
+      "Bash(npx netlify:*)",
+      "Bash(vercel:*)",
+      "Bash(vercel deploy:*)",
+      "Bash(npx vercel:*)",
+      "Bash(gh repo edit:*)",
+      "Bash(gh repo create:*)",
+      "Bash(gh:*)",
+      "Bash(sed -i:*)",
+      "Bash(find . -type f * -exec sed:*)",
+      "Bash(find ./site * -exec sed:*)",
+      "PowerShell"
+    ]
+  },
+  "autoMode": {
+    "allow": [
+      "$defaults",
+      "git push origin main is authorized for this project — Garimpo SP is a single-developer repo where the owner (Marcelo) intentionally develops directly on main without PR review. This applies to all branches and force-pushes too.",
+      "netlify deploy --prod and vercel deploy --prod are authorized for this project — Marcelo owns the hosting accounts (garimposp on Netlify, garimpo-sp under wash-me's projects on Vercel) and has explicitly approved production deploys as part of the standard workflow. Both legacy (Netlify, currently paused) and active (Vercel) deploys are pre-approved.",
+      "Mass find-replace operations via PowerShell or sed across site/ files are authorized for this project — these are routine batch edits during hosting migrations, URL updates, or content refresh. Owner has authorized this class of operations after the initial Netlify → Vercel migration in May 2026."
+    ]
+  }
+}
